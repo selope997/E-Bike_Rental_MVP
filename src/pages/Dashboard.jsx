@@ -18,6 +18,7 @@ export default function Dashboard() {
   const [returning, setReturning] = useState(false)
 
   const justSubscribed = searchParams.get('subscribed') === 'true'
+  const justBooked = searchParams.get('booked') === 'true'
 
   useEffect(() => {
     if (user) fetchActiveBooking()
@@ -61,6 +62,12 @@ export default function Dashboard() {
         {justSubscribed && (
           <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl text-green-800 text-sm font-medium">
             🎉 Subscription activated! You can now book a bike.
+          </div>
+        )}
+
+        {justBooked && (
+          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl text-green-800 text-sm font-medium">
+            Booking confirmed! Your bike is ready for pickup.
           </div>
         )}
 
@@ -120,7 +127,9 @@ export default function Dashboard() {
                   </div>
                   <p className="text-xs text-gray-500 mb-4">
                     Started: {new Date(booking.start_time).toLocaleString()}<br />
-                    Return by: {new Date(booking.expected_return).toLocaleString()}
+                    Return by: {new Date(booking.expected_return).toLocaleString()}<br />
+                    Duration: {booking.duration_weeks} week{booking.duration_weeks > 1 ? 's' : ''}<br />
+                    Paid: ${booking.amount_paid ? Number(booking.amount_paid).toFixed(2) : '—'}
                   </p>
                   <Button
                     variant="danger"
@@ -134,11 +143,9 @@ export default function Dashboard() {
               ) : (
                 <div>
                   <p className="text-gray-500 text-sm mb-3">No active rental.</p>
-                  {isActive && (
-                    <Link to="/bikes">
-                      <Button size="sm">Find a Bike</Button>
-                    </Link>
-                  )}
+                  <Link to="/bikes">
+                    <Button size="sm">Find a Bike</Button>
+                  </Link>
                 </div>
               )}
             </CardBody>

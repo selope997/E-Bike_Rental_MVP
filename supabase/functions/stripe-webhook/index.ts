@@ -29,7 +29,11 @@ serve(async (req) => {
     switch (event.type) {
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session
-        await handleCheckoutCompleted(session)
+        if (session.metadata?.bikeId) {
+          await handleBookingCheckoutCompleted(session)
+        } else {
+          await handleCheckoutCompleted(session)
+        }
         break
       }
       case 'customer.subscription.updated': {
@@ -97,6 +101,48 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     period_start: periodStart,
     period_end: periodEnd,
   }, { onConflict: 'stripe_subscription_id' })
+}
+
+async function handleBookingCheckoutCompleted(session: Stripe.Checkout.Session) {
+  const { userId, bikeId, durationWeeks: dStr } = session.metadata!
+  const durationWeeks = parseInt(dStr, 10)
+
+  if (!userId || !bikeId || isNaN(durationWeeks)) {
+    console.error('Booking webhook: missing or invalid metadata', session.metadata)
+    return
+  }
+
+  const ratePerWeek = durationWeeks < 4 ? 95 : 70
+  const amountPaid = (ratePerWeek * durationWeeks).toFixed(2)
+
+  const startTime = new Date()
+  const expectedReturn = new Date(startTime)
+  expectedReturn.setDate(expectedReturn.getDate() + durationWeeks * 7)
+
+  const { error: bookingError } = await supabase.from('bookings').insert({
+    user_id: userId,
+    bike_id: bikeId,
+    duration_weeks: durationWeeks,
+    amount_paid: amountPaid,
+    stripe_payment_intent_id: session.payment_intent as string,
+    start_time: startTime.toISOString(),
+    expected_return: expectedReturn.toISOString(),
+    status: 'active',
+  })
+
+  if (bookingError) {
+    console.error('Failed to insert booking:', bookingError)
+    throw new Error(bookingError.message)
+  }
+
+  const { error: bikeError } = await supabase
+    .from('bikes')
+    .update({ status: 'rented' })
+    .eq('id', bikeId)
+
+  if (bikeError) {
+    console.error('Failed to update bike status:', bikeError)
+  }
 }
 
 async function handleSubscriptionUpdated(sub: Stripe.Subscription) {

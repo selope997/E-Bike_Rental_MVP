@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
-import { useSubscription } from '../hooks/useSubscription'
+import { redirectToBookingCheckout } from '../lib/stripe'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
 import Button from '../components/ui/Button'
@@ -12,11 +12,16 @@ export default function BikeDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
   const { user } = useAuth()
-  const { isActive, subscription } = useSubscription()
   const [bike, setBike] = useState(null)
   const [loading, setLoading] = useState(true)
   const [booking, setBooking] = useState(false)
   const [error, setError] = useState('')
+  const [durationWeeks, setDurationWeeks] = useState(1)
+
+  // Derived pricing
+  const rate = durationWeeks < 4 ? 95 : 70
+  const totalCost = rate * durationWeeks
+  const savingsIfBulk = (95 - 70) * durationWeeks
 
   useEffect(() => {
     async function fetchBike() {
@@ -33,32 +38,22 @@ export default function BikeDetail() {
 
   async function handleBook() {
     if (!user) return navigate('/login')
-    if (!isActive) return navigate('/subscribe')
 
     setBooking(true)
     setError('')
 
-    const expectedReturn = new Date()
-    expectedReturn.setDate(expectedReturn.getDate() + 1)
-
-    const { error: bookErr } = await supabase.from('bookings').insert({
-      user_id: user.id,
-      bike_id: bike.id,
-      subscription_id: subscription.id,
-      start_time: new Date().toISOString(),
-      expected_return: expectedReturn.toISOString(),
-      status: 'active',
-    })
-
-    if (bookErr) {
-      setError(bookErr.message)
+    try {
+      await redirectToBookingCheckout({
+        bikeId: bike.id,
+        userId: user.id,
+        durationWeeks,
+        successUrl: `${window.location.origin}/dashboard?booked=true`,
+        cancelUrl: window.location.href,
+      })
+    } catch (err) {
+      setError(err.message)
       setBooking(false)
-      return
     }
-
-    // Update bike status
-    await supabase.from('bikes').update({ status: 'rented' }).eq('id', bike.id)
-    navigate('/dashboard')
   }
 
   if (loading) {
@@ -121,22 +116,62 @@ export default function BikeDetail() {
             {bike.status === 'available' ? (
               <div>
                 {!user && (
-                  <p className="text-gray-500 text-sm mb-3">
+                  <p className="text-gray-500 text-sm mb-4">
                     <Link to="/login" className="text-primary-600 hover:underline">Sign in</Link> to book this bike.
                   </p>
                 )}
-                {user && !isActive && (
-                  <p className="text-gray-500 text-sm mb-3">
-                    You need an <Link to="/subscribe" className="text-primary-600 hover:underline">active subscription</Link> to book.
-                  </p>
-                )}
+
+                {/* Duration selector */}
+                <div className="mb-5">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Rental Duration (weeks)
+                  </label>
+                  <div className="flex items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setDurationWeeks(w => Math.max(1, w - 1))}
+                      className="w-9 h-9 rounded-lg border border-gray-300 text-lg font-bold text-gray-600 hover:bg-gray-50 flex items-center justify-center"
+                    >
+                      −
+                    </button>
+                    <span className="text-2xl font-bold text-gray-900 w-8 text-center">{durationWeeks}</span>
+                    <button
+                      type="button"
+                      onClick={() => setDurationWeeks(w => Math.min(12, w + 1))}
+                      className="w-9 h-9 rounded-lg border border-gray-300 text-lg font-bold text-gray-600 hover:bg-gray-50 flex items-center justify-center"
+                    >
+                      +
+                    </button>
+                    <span className="text-sm text-gray-400 ml-1">max 12 weeks</span>
+                  </div>
+                </div>
+
+                {/* Pricing summary */}
+                <div className="mb-5 p-4 rounded-xl bg-gray-50 border border-gray-200">
+                  <div className="flex justify-between items-center">
+                    <span className="text-sm text-gray-600">
+                      {durationWeeks} week{durationWeeks > 1 ? 's' : ''} × ${rate}/week
+                    </span>
+                    <span className="text-lg font-bold text-gray-900">${totalCost}</span>
+                  </div>
+                  {durationWeeks < 4 ? (
+                    <p className="text-xs text-primary-600 mt-2">
+                      Tip: book 4+ weeks to drop to $70/week — save ${savingsIfBulk} total.
+                    </p>
+                  ) : (
+                    <p className="text-xs text-green-600 mt-2">
+                      Bulk rate applied — $70/week.
+                    </p>
+                  )}
+                </div>
+
                 <Button
                   size="lg"
                   onClick={handleBook}
                   loading={booking}
-                  disabled={!user || !isActive}
+                  disabled={!user}
                 >
-                  Book Now
+                  Book Now — ${totalCost}
                 </Button>
               </div>
             ) : (

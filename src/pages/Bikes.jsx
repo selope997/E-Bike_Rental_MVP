@@ -67,13 +67,15 @@ export default function Bikes() {
               return (
                 <Link key={bike.id} to={`/bikes/${bike.id}`} className="group">
                   <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-                    {bike.image_url ? (
-                      <img src={bike.image_url} alt={bike.name} className="w-full h-48 object-cover" />
-                    ) : (
-                      <div className="w-full h-48 bg-gray-100 flex items-center justify-center text-6xl">
-                        🚴
-                      </div>
-                    )}
+                    <div className="w-full h-48 overflow-hidden bg-gray-100">
+                      {bike.image_url ? (
+                        <img src={bike.image_url} alt={bike.name} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-6xl">
+                          🚴
+                        </div>
+                      )}
+                    </div>
                     <div className="p-4">
                       <div className="flex items-center justify-between mb-1">
                         <h3 className="font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">
