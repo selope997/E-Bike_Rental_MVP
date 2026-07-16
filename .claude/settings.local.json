@@ -4,7 +4,10 @@
       "Bash(cd \"D:/Cursos/rent e-bikes web 2\" && npm create vite@latest . -- --template react --yes 2>&1)",
       "Bash(npm audit *)",
       "Bash(grep -iA2 verify_jwt)",
-      "Bash(npx vite *)"
+      "Bash(npx vite *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(npm run *)"
     ]
   }
 }

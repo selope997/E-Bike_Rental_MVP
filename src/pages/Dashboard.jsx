@@ -6,12 +6,12 @@ import { useSubscription } from '../hooks/useSubscription'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
 import Button from '../components/ui/Button'
-import Badge, { statusBadge } from '../components/ui/Badge'
+import Badge from '../components/ui/Badge'
 import Card, { CardHeader, CardBody } from '../components/ui/Card'
 
 export default function Dashboard() {
   const { user } = useAuth()
-  const { subscription, isActive, loading: subLoading, refresh: refreshSub } = useSubscription()
+  const { subscription, isActive, loading: subLoading } = useSubscription()
   const [searchParams] = useSearchParams()
   const [booking, setBooking] = useState(null)
   const [bookingLoading, setBookingLoading] = useState(true)
