@@ -11,27 +11,27 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-white border-b border-gray-200 sticky top-0 z-40">
+    <nav className="bg-volt-bg/85 backdrop-blur border-b border-volt-line sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 text-primary-600 font-bold text-xl">
-            <span>🚴</span>
-            <span>E-Bike Rentals</span>
+          <Link to="/" className="flex items-center gap-2 font-display font-bold text-xl text-volt-text">
+            <span className="w-8 h-8 rounded-lg bg-accent text-volt-bg grid place-items-center">⚡</span>
+            <span>VOLTBIKE</span>
           </Link>
 
           {/* Nav Links */}
           <div className="hidden md:flex items-center gap-6">
-            <Link to="/bikes" className="text-gray-600 hover:text-primary-600 text-sm font-medium transition-colors">
+            <Link to="/bikes" className="text-volt-muted hover:text-accent text-sm font-medium transition-colors">
               Browse Bikes
             </Link>
             {user && (
-              <Link to="/dashboard" className="text-gray-600 hover:text-primary-600 text-sm font-medium transition-colors">
+              <Link to="/dashboard" className="text-volt-muted hover:text-accent text-sm font-medium transition-colors">
                 Dashboard
               </Link>
             )}
             {profile?.role === 'admin' && (
-              <Link to="/admin" className="text-gray-600 hover:text-primary-600 text-sm font-medium transition-colors">
+              <Link to="/admin" className="text-volt-muted hover:text-accent text-sm font-medium transition-colors">
                 Admin
               </Link>
             )}
@@ -43,13 +43,13 @@ export default function Navbar() {
               <>
                 <Link
                   to="/profile"
-                  className="text-sm text-gray-600 hover:text-primary-600 font-medium transition-colors"
+                  className="text-sm text-volt-muted hover:text-accent font-medium transition-colors"
                 >
                   {profile?.full_name || user.email}
                 </Link>
                 <button
                   onClick={handleSignOut}
-                  className="text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-lg font-medium transition-colors"
+                  className="text-sm bg-volt-surface border border-volt-stroke text-volt-text px-4 py-2 rounded-lg font-medium hover:bg-volt-border transition-colors"
                 >
                   Sign out
                 </button>
@@ -58,15 +58,15 @@ export default function Navbar() {
               <>
                 <Link
                   to="/login"
-                  className="text-sm text-gray-600 hover:text-primary-600 font-medium transition-colors"
+                  className="text-sm text-volt-muted hover:text-accent font-medium transition-colors"
                 >
                   Login
                 </Link>
                 <Link
                   to="/register"
-                  className="text-sm bg-primary-600 text-white hover:bg-primary-700 px-4 py-2 rounded-lg font-medium transition-colors"
+                  className="text-sm bg-accent text-volt-bg hover:bg-accent-600 px-4 py-2 rounded-lg font-display font-bold transition-colors"
                 >
-                  Get Started
+                  Get started
                 </Link>
               </>
             )}

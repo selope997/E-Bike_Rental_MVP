@@ -34,15 +34,20 @@ export default function Subscribe() {
     }
   }
 
+  // Highlight the most expensive plan (the "best value" lime-gradient card)
+  const highlightId = plans.length
+    ? plans.reduce((max, p) => (Number(p.price) > Number(max.price) ? p : max), plans[0]).id
+    : null
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Choose Your Plan</h1>
-        <p className="text-gray-500 mb-8">Unlock unlimited bike access with a subscription.</p>
+        <h1 className="font-display font-bold text-[34px] mb-2">Choose your plan</h1>
+        <p className="text-volt-dim mb-8">Unlock unlimited bike access with a subscription.</p>
 
         {isActive && (
-          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl text-green-800 text-sm">
+          <div className="mb-6 bg-accent/10 border border-accent/25 text-accent rounded-xl px-[18px] py-3.5 text-sm">
             You already have an active <strong>{subscription?.subscription_plans?.name}</strong> subscription
             valid until{' '}
             <strong>{new Date(subscription?.period_end).toLocaleDateString()}</strong>.{' '}
@@ -53,35 +58,60 @@ export default function Subscribe() {
         )}
 
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+          <div className="mb-4 p-3 bg-[#e5484d]/10 border border-[#e5484d]/25 text-[#ff8079] rounded-lg text-sm">
             {error}
           </div>
         )}
 
         {plans.length === 0 ? (
-          <div className="text-center py-16 text-gray-400">
+          <div className="text-center py-16 text-volt-faint">
             No plans available yet. Add plans in the Supabase database.
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {plans.map(plan => (
-              <div key={plan.id} className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8 flex flex-col">
-                <h2 className="text-2xl font-bold text-gray-900 mb-1">{plan.name}</h2>
-                <div className="text-4xl font-extrabold text-primary-600 mb-1">
-                  ${plan.price}
-                </div>
-                <p className="text-sm text-gray-500 mb-6">{plan.duration_days} days</p>
-                <Button
-                  size="lg"
-                  className="mt-auto"
-                  loading={loading === plan.id}
-                  disabled={!!loading || isActive}
-                  onClick={() => handleSelect(plan)}
+            {plans.map(plan => {
+              const highlighted = plan.id === highlightId
+              return highlighted ? (
+                <div
+                  key={plan.id}
+                  className="rounded-2xl p-8 flex flex-col text-volt-bg"
+                  style={{ background: 'linear-gradient(160deg,#d4ff3f,#a8e600)' }}
                 >
-                  {isActive ? 'Already Subscribed' : 'Subscribe with Stripe'}
-                </Button>
-              </div>
-            ))}
+                  <div className="flex items-center justify-between mb-1">
+                    <h2 className="font-display font-semibold text-2xl">{plan.name}</h2>
+                    <span className="bg-volt-bg text-accent text-xs font-bold rounded-full px-3 py-1">BEST VALUE</span>
+                  </div>
+                  <div className="font-display font-bold text-[44px]">${plan.price}</div>
+                  <p className="text-sm opacity-80 mb-8">{plan.duration_days} days</p>
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    className="mt-auto !bg-volt-bg !text-accent !border-transparent hover:!bg-black"
+                    loading={loading === plan.id}
+                    disabled={!!loading || isActive}
+                    onClick={() => handleSelect(plan)}
+                  >
+                    {isActive ? 'Already subscribed' : 'Subscribe with Stripe'}
+                  </Button>
+                </div>
+              ) : (
+                <div key={plan.id} className="bg-volt-surface border border-volt-border rounded-2xl p-8 flex flex-col">
+                  <h2 className="font-display font-semibold text-2xl mb-1">{plan.name}</h2>
+                  <div className="font-display font-bold text-[44px]">${plan.price}</div>
+                  <p className="text-sm text-volt-dim mb-8">{plan.duration_days} days</p>
+                  <Button
+                    size="lg"
+                    variant="secondary"
+                    className="mt-auto"
+                    loading={loading === plan.id}
+                    disabled={!!loading || isActive}
+                    onClick={() => handleSelect(plan)}
+                  >
+                    {isActive ? 'Already subscribed' : 'Subscribe with Stripe'}
+                  </Button>
+                </div>
+              )
+            })}
           </div>
         )}
       </main>

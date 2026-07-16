@@ -4,15 +4,21 @@ import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
 
 const steps = [
-  { icon: '📝', title: 'Register', desc: 'Create your account and select your delivery platform.' },
-  { icon: '💳', title: 'Subscribe', desc: 'Pick a weekly or monthly plan via Stripe.' },
-  { icon: '🚴', title: 'Ride', desc: 'Pick up your e-bike from a nearby station and start delivering.' },
-  { icon: '🔄', title: 'Return', desc: 'Return the bike to any station when you\'re done.' },
+  { num: '01', title: 'Register', desc: 'Create your account and select your delivery platform.' },
+  { num: '02', title: 'Subscribe', desc: 'Pick a weekly or monthly plan via Stripe.' },
+  { num: '03', title: 'Ride', desc: 'Pick up your e-bike from a nearby station and start delivering.' },
+  { num: '04', title: 'Return', desc: 'Return the bike to any station when you\'re done.' },
 ]
 
 const plans = [
-  { name: 'Weekly', price: 95, desc: 'Perfect for trying out. 7 days of unlimited riding.' },
-  { name: 'Monthly', price: 280, desc: 'Best value. 30 days, priority bike selection.' },
+  { name: 'Weekly', price: 95, unit: '/week', desc: 'Perfect for trying out. 7 days of unlimited riding.' },
+  { name: 'Monthly', price: 280, unit: '/month', desc: 'Best value. 30 days, priority bike selection.' },
+]
+
+const stats = [
+  { value: '$95/wk', label: 'Starting rate' },
+  { value: '60mi', label: 'Range per charge' },
+  { value: '24/7', label: 'Roadside swap' },
 ]
 
 export default function Home() {
@@ -28,116 +34,164 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-volt-bg">
       <Navbar />
 
-      {/* Hero */}
-      <section className="bg-gradient-to-br from-primary-600 to-primary-800 text-white py-24">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h1 className="text-5xl font-extrabold mb-6 leading-tight">
-            E-Bikes for Delivery Drivers
-          </h1>
-          <p className="text-xl text-primary-100 mb-10 max-w-2xl mx-auto">
-            Affordable weekly and monthly e-bike subscriptions designed for DoorDash, Uber Eats,
-            and independent delivery workers.
-          </p>
-          <div className="flex gap-4 justify-center">
-            <Link
-              to="/register"
-              className="bg-white text-primary-700 font-bold px-8 py-3 rounded-xl hover:bg-primary-50 transition-colors text-lg"
-            >
-              Get Started
-            </Link>
-            <Link
-              to="/bikes"
-              className="border-2 border-white text-white font-bold px-8 py-3 rounded-xl hover:bg-white/10 transition-colors text-lg"
-            >
-              Browse Bikes
-            </Link>
-          </div>
-        </div>
-      </section>
+      <main className="flex-1">
+        <div className="max-w-[1200px] mx-auto px-6 md:px-10">
 
-      {/* Date Range Search */}
-      <section className="py-12 bg-white border-b border-gray-100">
-        <div className="max-w-3xl mx-auto px-4">
-          <h2 className="text-2xl font-bold text-center text-gray-900 mb-2">Check Availability</h2>
-          <p className="text-center text-gray-500 mb-6 text-sm">No account needed — pick your dates and see available bikes.</p>
-          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-4 items-end justify-center">
-            <div className="flex flex-col gap-1">
-              <label className="text-sm font-medium text-gray-700">From</label>
-              <input
-                type="date"
-                value={fromDate}
-                min={today}
-                onChange={e => {
-                  setFromDate(e.target.value)
-                  if (toDate < e.target.value) setToDate(e.target.value)
-                }}
-                className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
-                required
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <label className="text-sm font-medium text-gray-700">To</label>
-              <input
-                type="date"
-                value={toDate}
-                min={fromDate}
-                onChange={e => setToDate(e.target.value)}
-                className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              className="bg-primary-600 text-white font-semibold px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors text-sm"
-            >
-              Search Available Bikes
-            </button>
-          </form>
-        </div>
-      </section>
-
-      {/* How it Works */}
-      <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">How It Works</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {steps.map((step, i) => (
-              <div key={i} className="text-center">
-                <div className="text-5xl mb-4">{step.icon}</div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{step.title}</h3>
-                <p className="text-gray-600 text-sm">{step.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">Simple Pricing</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {plans.map((plan) => (
-              <div key={plan.name} className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8 text-center">
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
-                <div className="text-5xl font-extrabold text-primary-600 mb-2">
-                  ${plan.price}
-                </div>
-                <p className="text-gray-500 mb-6 text-sm">{plan.desc}</p>
+          {/* Hero */}
+          <section className="grid md:grid-cols-[1.05fr_.95fr] gap-12 items-center py-16 md:py-24">
+            <div>
+              <span className="inline-flex items-center gap-2 bg-volt-surface border border-volt-stroke text-[#c7ffbe] text-xs font-semibold rounded-full px-3.5 py-1.5">
+                <span className="w-[7px] h-[7px] rounded-full bg-accent" />
+                200+ bikes live across 6 stations
+              </span>
+              <h1 className="font-display font-bold text-[44px] sm:text-[56px] md:text-[66px] leading-[.98] tracking-[-.03em] mt-6">
+                Power up every <span className="text-accent">delivery</span> shift.
+              </h1>
+              <p className="text-[17px] md:text-[19px] leading-relaxed text-volt-muted max-w-[460px] mt-5">
+                Affordable weekly and monthly e-bike subscriptions built for DoorDash, Uber Eats,
+                and independent delivery drivers.
+              </p>
+              <div className="flex flex-wrap gap-4 mt-8">
                 <Link
                   to="/register"
-                  className="block w-full bg-primary-600 text-white font-semibold py-3 rounded-xl hover:bg-primary-700 transition-colors"
+                  className="bg-accent text-volt-bg hover:bg-accent-600 font-display font-bold px-7 py-[15px] rounded-xl transition-colors"
                 >
-                  Start Now
+                  Get started →
+                </Link>
+                <Link
+                  to="/bikes"
+                  className="border border-volt-outline text-volt-text hover:bg-volt-surface font-medium px-7 py-[15px] rounded-xl transition-colors"
+                >
+                  Browse bikes
                 </Link>
               </div>
-            ))}
-          </div>
+              <div className="flex gap-9 mt-10">
+                {stats.map(s => (
+                  <div key={s.label}>
+                    <div className="font-display font-bold text-[30px] leading-none">{s.value}</div>
+                    <div className="text-[13px] text-volt-faint mt-1">{s.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Hero image (drop a photo at public/hero.jpg; emoji panel shows until then) */}
+            <div className="relative h-[320px] md:h-[440px] rounded-[20px] border border-volt-border overflow-hidden bg-volt-surface">
+              {/* Fallback layer — sits behind the photo, revealed only if the image fails */}
+              <div className="absolute inset-0 grid place-items-center text-8xl bg-gradient-to-br from-volt-surface to-volt-bg">
+                🚴
+              </div>
+              <img
+                src="/hero.jpg"
+                alt="Delivery rider on an e-bike"
+                className="relative z-10 w-full h-full object-cover"
+                onError={e => { e.currentTarget.style.display = 'none' }}
+              />
+            </div>
+          </section>
+
+          {/* Availability */}
+          <section className="pb-16">
+            <div className="bg-volt-surface border border-volt-border rounded-[18px] p-7">
+              <h2 className="font-display font-semibold text-xl">Check availability</h2>
+              <p className="text-volt-dim text-sm mt-1 mb-5">No account needed — pick your dates.</p>
+              <form onSubmit={handleSearch} className="grid sm:grid-cols-[1fr_1fr_auto] gap-[22px] items-end">
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[13px] font-semibold text-volt-muted">From</label>
+                  <input
+                    type="date"
+                    value={fromDate}
+                    min={today}
+                    onChange={e => {
+                      setFromDate(e.target.value)
+                      if (toDate < e.target.value) setToDate(e.target.value)
+                    }}
+                    className="bg-volt-bg border border-volt-stroke rounded-[10px] px-4 py-3 text-sm text-volt-text [color-scheme:dark] focus:outline-none focus:ring-2 focus:ring-accent"
+                    required
+                  />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <label className="text-[13px] font-semibold text-volt-muted">To</label>
+                  <input
+                    type="date"
+                    value={toDate}
+                    min={fromDate}
+                    onChange={e => setToDate(e.target.value)}
+                    className="bg-volt-bg border border-volt-stroke rounded-[10px] px-4 py-3 text-sm text-volt-text [color-scheme:dark] focus:outline-none focus:ring-2 focus:ring-accent"
+                    required
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="bg-accent text-volt-bg hover:bg-accent-600 font-display font-bold px-6 py-3 rounded-[10px] transition-colors"
+                >
+                  Search bikes
+                </button>
+              </form>
+            </div>
+          </section>
+
+          {/* How it works */}
+          <section className="py-16">
+            <h2 className="font-display font-bold text-[28px] md:text-[34px] mb-10">Rolling in four steps</h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {steps.map(step => (
+                <div key={step.num} className="bg-volt-surface border border-volt-border rounded-2xl p-6">
+                  <div className="font-display font-bold text-accent text-[26px]">{step.num}</div>
+                  <h3 className="font-display font-semibold text-lg mt-3 mb-2">{step.title}</h3>
+                  <p className="text-volt-dim text-sm leading-relaxed">{step.desc}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Pricing */}
+          <section className="py-16">
+            <h2 className="font-display font-bold text-[28px] md:text-[34px] mb-10">Simple pricing</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Weekly — surface */}
+              <div className="bg-volt-surface border border-volt-border rounded-2xl p-8 flex flex-col">
+                <h3 className="font-display font-semibold text-xl">{plans[0].name}</h3>
+                <div className="font-display font-bold text-[44px] mt-3">
+                  ${plans[0].price}<span className="text-lg text-volt-dim font-sans font-normal">{plans[0].unit}</span>
+                </div>
+                <p className="text-volt-dim text-sm mt-2 mb-8">{plans[0].desc}</p>
+                <Link
+                  to="/register"
+                  className="mt-auto block text-center border border-volt-outline text-volt-text hover:bg-volt-border font-medium py-3 rounded-xl transition-colors"
+                >
+                  Start now
+                </Link>
+              </div>
+
+              {/* Monthly — lime gradient */}
+              <div
+                className="rounded-2xl p-8 flex flex-col text-volt-bg"
+                style={{ background: 'linear-gradient(160deg,#d4ff3f,#a8e600)' }}
+              >
+                <div className="flex items-center justify-between">
+                  <h3 className="font-display font-semibold text-xl">{plans[1].name}</h3>
+                  <span className="bg-volt-bg text-accent text-xs font-bold rounded-full px-3 py-1">BEST VALUE</span>
+                </div>
+                <div className="font-display font-bold text-[44px] mt-3">
+                  ${plans[1].price}<span className="text-lg font-sans font-normal opacity-70">{plans[1].unit}</span>
+                </div>
+                <p className="text-sm mt-2 mb-8 opacity-80">{plans[1].desc}</p>
+                <Link
+                  to="/register"
+                  className="mt-auto block text-center bg-volt-bg text-accent hover:bg-black font-display font-bold py-3 rounded-xl transition-colors"
+                >
+                  Start now
+                </Link>
+              </div>
+            </div>
+          </section>
+
         </div>
-      </section>
+      </main>
 
       <Footer />
     </div>

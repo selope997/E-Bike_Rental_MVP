@@ -57,16 +57,16 @@ export default function Dashboard() {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">My Dashboard</h1>
+        <h1 className="font-display font-bold text-[34px] mb-8">My dashboard</h1>
 
         {justSubscribed && (
-          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl text-green-800 text-sm font-medium">
+          <div className="mb-6 bg-accent/10 border border-accent/25 text-accent rounded-xl px-[18px] py-3.5 text-sm font-medium">
             🎉 Subscription activated! You can now book a bike.
           </div>
         )}
 
         {justBooked && (
-          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl text-green-800 text-sm font-medium">
+          <div className="mb-6 bg-accent/10 border border-accent/25 text-accent rounded-xl px-[18px] py-3.5 text-sm font-medium">
             Booking confirmed! Your bike is ready for pickup.
           </div>
         )}
@@ -75,30 +75,30 @@ export default function Dashboard() {
           {/* Subscription Card */}
           <Card>
             <CardHeader>
-              <h2 className="text-lg font-semibold text-gray-900">Subscription</h2>
+              <h2 className="text-lg">Subscription</h2>
             </CardHeader>
             <CardBody>
               {subLoading ? (
-                <div className="animate-pulse h-16 bg-gray-100 rounded" />
+                <div className="animate-pulse h-16 bg-volt-bg rounded" />
               ) : isActive ? (
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <Badge variant="green">Active</Badge>
-                    <span className="font-semibold text-gray-900">{subscription?.subscription_plans?.name}</span>
+                    <span className="font-display font-semibold text-volt-text">{subscription?.subscription_plans?.name}</span>
                   </div>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-volt-dim">
                     Valid until{' '}
-                    <strong>{new Date(subscription?.period_end).toLocaleDateString()}</strong>
+                    <strong className="text-volt-text">{new Date(subscription?.period_end).toLocaleDateString()}</strong>
                   </p>
-                  <Link to="/profile" className="text-sm text-primary-600 hover:underline mt-2 inline-block">
+                  <Link to="/profile" className="text-sm text-accent hover:underline mt-2 inline-block">
                     Manage subscription →
                   </Link>
                 </div>
               ) : (
                 <div>
-                  <p className="text-gray-500 text-sm mb-3">No active subscription.</p>
+                  <p className="text-volt-dim text-sm mb-3">No active subscription.</p>
                   <Link to="/subscribe">
-                    <Button size="sm">Subscribe Now</Button>
+                    <Button size="sm">Subscribe now</Button>
                   </Link>
                 </div>
               )}
@@ -108,24 +108,24 @@ export default function Dashboard() {
           {/* Booking Card */}
           <Card>
             <CardHeader>
-              <h2 className="text-lg font-semibold text-gray-900">Current Rental</h2>
+              <h2 className="text-lg">Current rental</h2>
             </CardHeader>
             <CardBody>
               {bookingLoading ? (
-                <div className="animate-pulse h-16 bg-gray-100 rounded" />
+                <div className="animate-pulse h-16 bg-volt-bg rounded" />
               ) : booking ? (
                 <div>
                   <div className="flex items-center gap-3 mb-3">
-                    <div className="text-3xl">🚴</div>
+                    <div className="w-12 h-12 rounded-[11px] bg-volt-bg border border-volt-border grid place-items-center text-2xl">🚴</div>
                     <div>
-                      <p className="font-semibold text-gray-900">{booking.bikes?.name}</p>
-                      <p className="text-sm text-gray-500">{booking.bikes?.type}</p>
+                      <p className="font-display font-semibold text-volt-text">{booking.bikes?.name}</p>
+                      <p className="text-sm text-volt-dim">{booking.bikes?.type}</p>
                       {booking.bikes?.stations && (
-                        <p className="text-xs text-gray-400">📍 {booking.bikes.stations.name}</p>
+                        <p className="text-[13px] text-volt-faint">📍 {booking.bikes.stations.name}</p>
                       )}
                     </div>
                   </div>
-                  <p className="text-xs text-gray-500 mb-4">
+                  <p className="text-[13px] text-volt-dim leading-relaxed mb-4">
                     Started: {new Date(booking.start_time).toLocaleString()}<br />
                     Return by: {new Date(booking.expected_return).toLocaleString()}<br />
                     Duration: {booking.duration_weeks} week{booking.duration_weeks > 1 ? 's' : ''}<br />
@@ -137,14 +137,14 @@ export default function Dashboard() {
                     loading={returning}
                     onClick={handleReturn}
                   >
-                    Return Bike
+                    Return bike
                   </Button>
                 </div>
               ) : (
                 <div>
-                  <p className="text-gray-500 text-sm mb-3">No active rental.</p>
+                  <p className="text-volt-dim text-sm mb-3">No active rental.</p>
                   <Link to="/bikes">
-                    <Button size="sm">Find a Bike</Button>
+                    <Button size="sm">Find a bike</Button>
                   </Link>
                 </div>
               )}

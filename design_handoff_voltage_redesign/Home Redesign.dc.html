@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700;800&family=Archivo:wght@500;600;700;800;900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #e9e7e2; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { text-decoration: none; }
+  .opt-scroll::-webkit-scrollbar { width: 8px; height: 8px; }
+  .opt-scroll::-webkit-scrollbar-thumb { background: rgba(0,0,0,.18); border-radius: 8px; }
+</style>
+</helmet>
+
+<section style="padding:56px; display:flex; flex-wrap:wrap; gap:56px; align-items:flex-start; font-family:'Figtree',sans-serif;">
+
+  <!-- ================= OPTION 1A — VOLTAGE ================= -->
+  <div id="1a" style="width:1280px; flex:0 0 auto;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+      <span style="background:#0d0f0e; color:#d4ff3f; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; padding:6px 14px; border-radius:999px; letter-spacing:.02em;">1A · Voltage</span>
+      <span style="color:#3a3a37; font-size:14px; font-family:'Hanken Grotesk',sans-serif;">Dark, electric — high-energy startup</span>
+    </div>
+    <div class="opt-scroll" style="width:1280px; height:1500px; overflow:hidden auto; border-radius:24px; box-shadow:0 30px 80px -30px rgba(0,0,0,.45); background:#0d0f0e; font-family:'Hanken Grotesk',sans-serif; color:#f4f6f4;">
+
+      <!-- nav -->
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:22px 40px; border-bottom:1px solid #1e2220; position:sticky; top:0; background:rgba(13,15,14,.85); backdrop-filter:blur(10px); z-index:5;">
+        <div style="display:flex; align-items:center; gap:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:21px; letter-spacing:-.01em;">
+          <span style="width:34px; height:34px; border-radius:9px; background:#d4ff3f; color:#0d0f0e; display:grid; place-items:center; font-size:19px;">⚡</span>
+          VOLTBIKE
+        </div>
+        <div style="display:flex; align-items:center; gap:32px; font-size:15px; color:#a9b0ab; font-weight:500;">
+          <a href="#1a">Browse bikes</a><a href="#1a">How it works</a><a href="#1a">Pricing</a>
+          <a href="#1a" style="color:#d4ff3f;">Login</a>
+          <a href="#1a" style="background:#d4ff3f; color:#0d0f0e; font-weight:700; padding:11px 20px; border-radius:10px;">Get started</a>
+        </div>
+      </div>
+
+      <!-- hero -->
+      <div style="padding:64px 40px 56px; display:grid; grid-template-columns:1.05fr .95fr; gap:48px; align-items:center;">
+        <div>
+          <div style="display:inline-flex; align-items:center; gap:8px; background:#171b19; border:1px solid #2a302c; color:#c7ffbe; font-size:13px; font-weight:600; padding:7px 14px; border-radius:999px; margin-bottom:24px;">
+            <span style="width:7px; height:7px; border-radius:50%; background:#d4ff3f;"></span> 200+ bikes live across 6 stations
+          </div>
+          <h1 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:66px; line-height:.98; letter-spacing:-.03em; margin:0 0 22px;">
+            Power up<br>every <span style="color:#d4ff3f;">delivery</span> shift.
+          </h1>
+          <p style="font-size:19px; line-height:1.5; color:#a9b0ab; max-width:460px; margin:0 0 32px;">
+            Weekly and monthly e-bike subscriptions built for DoorDash, Uber Eats and independent couriers. No deposit, swap anytime.
+          </p>
+          <div style="display:flex; gap:14px; margin-bottom:40px;">
+            <a href="#1a" style="background:#d4ff3f; color:#0d0f0e; font-weight:700; font-size:16px; padding:15px 28px; border-radius:12px;">Get started →</a>
+            <a href="#1a" style="border:1.5px solid #33393c; color:#f4f6f4; font-weight:600; font-size:16px; padding:15px 28px; border-radius:12px;">Browse bikes</a>
+          </div>
+          <div style="display:flex; gap:36px;">
+            <div><div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:30px;">$95<span style="font-size:16px; color:#a9b0ab;">/wk</span></div><div style="font-size:13px; color:#7c837d;">Starting rate</div></div>
+            <div><div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:30px;">60mi</div><div style="font-size:13px; color:#7c837d;">Range per charge</div></div>
+            <div><div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:30px;">24/7</div><div style="font-size:13px; color:#7c837d;">Roadside swap</div></div>
+          </div>
+        </div>
+        <div style="position:relative; height:440px; border-radius:20px; overflow:hidden; border:1px solid #262b28;">
+          <image-slot id="a-hero" shape="rect" fit="cover" placeholder="Drop e-bike hero photo"></image-slot>
+        </div>
+      </div>
+
+      <!-- availability -->
+      <div style="padding:0 40px 60px;">
+        <div style="background:#141815; border:1px solid #232825; border-radius:18px; padding:28px 32px; display:grid; grid-template-columns:1fr 1fr auto; gap:22px; align-items:end;">
+          <div style="grid-column:1 / -1; margin-bottom:2px;"><div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:20px;">Check availability</div><div style="font-size:14px; color:#8b928c;">No account needed — pick your dates.</div></div>
+          <div><label style="display:block; font-size:13px; color:#a9b0ab; margin-bottom:8px; font-weight:600;">From</label><div style="background:#0d0f0e; border:1px solid #2a302c; border-radius:10px; padding:13px 15px; font-size:15px; color:#f4f6f4;">Jul 14, 2026</div></div>
+          <div><label style="display:block; font-size:13px; color:#a9b0ab; margin-bottom:8px; font-weight:600;">To</label><div style="background:#0d0f0e; border:1px solid #2a302c; border-radius:10px; padding:13px 15px; font-size:15px; color:#f4f6f4;">Jul 21, 2026</div></div>
+          <a href="#1a" style="background:#d4ff3f; color:#0d0f0e; font-weight:700; font-size:15px; padding:14px 26px; border-radius:10px; white-space:nowrap;">Search bikes</a>
+        </div>
+      </div>
+
+      <!-- how it works -->
+      <div style="padding:8px 40px 60px;">
+        <h2 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:34px; letter-spacing:-.02em; margin:0 0 8px;">Rolling in four steps</h2>
+        <p style="color:#8b928c; font-size:16px; margin:0 0 32px;">From sign-up to first delivery in under ten minutes.</p>
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:18px;">
+          <div style="background:#141815; border:1px solid #232825; border-radius:16px; padding:24px;"><div style="font-family:'Space Grotesk',sans-serif; color:#d4ff3f; font-size:14px; font-weight:700; margin-bottom:14px;">01</div><div style="font-weight:700; font-size:18px; margin-bottom:6px;">Register</div><div style="font-size:14px; color:#8b928c; line-height:1.5;">Create your account and pick your delivery platform.</div></div>
+          <div style="background:#141815; border:1px solid #232825; border-radius:16px; padding:24px;"><div style="font-family:'Space Grotesk',sans-serif; color:#d4ff3f; font-size:14px; font-weight:700; margin-bottom:14px;">02</div><div style="font-weight:700; font-size:18px; margin-bottom:6px;">Subscribe</div><div style="font-size:14px; color:#8b928c; line-height:1.5;">Choose weekly or monthly. Secure Stripe checkout.</div></div>
+          <div style="background:#141815; border:1px solid #232825; border-radius:16px; padding:24px;"><div style="font-family:'Space Grotesk',sans-serif; color:#d4ff3f; font-size:14px; font-weight:700; margin-bottom:14px;">03</div><div style="font-weight:700; font-size:18px; margin-bottom:6px;">Ride</div><div style="font-size:14px; color:#8b928c; line-height:1.5;">Pick up your e-bike from a nearby station and go.</div></div>
+          <div style="background:#141815; border:1px solid #232825; border-radius:16px; padding:24px;"><div style="font-family:'Space Grotesk',sans-serif; color:#d4ff3f; font-size:14px; font-weight:700; margin-bottom:14px;">04</div><div style="font-weight:700; font-size:18px; margin-bottom:6px;">Return</div><div style="font-size:14px; color:#8b928c; line-height:1.5;">Drop the bike at any station when your shift ends.</div></div>
+        </div>
+      </div>
+
+      <!-- pricing -->
+      <div style="padding:8px 40px 64px;">
+        <h2 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:34px; letter-spacing:-.02em; margin:0 0 32px;">Simple pricing</h2>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+          <div style="background:#141815; border:1px solid #232825; border-radius:20px; padding:32px;">
+            <div style="font-weight:700; font-size:20px; margin-bottom:6px;">Weekly</div>
+            <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:52px; letter-spacing:-.02em;">$95<span style="font-size:18px; color:#8b928c; font-weight:500;">/week</span></div>
+            <p style="color:#8b928c; font-size:15px; margin:8px 0 22px;">Perfect to try it out. 7 days of unlimited riding.</p>
+            <a href="#1a" style="display:block; text-align:center; border:1.5px solid #33393c; color:#f4f6f4; font-weight:700; padding:13px; border-radius:11px;">Start weekly</a>
+          </div>
+          <div style="background:linear-gradient(160deg,#d4ff3f,#a8e600); color:#0d0f0e; border-radius:20px; padding:32px; position:relative;">
+            <div style="position:absolute; top:24px; right:24px; background:#0d0f0e; color:#d4ff3f; font-size:12px; font-weight:700; padding:5px 12px; border-radius:999px;">BEST VALUE</div>
+            <div style="font-weight:700; font-size:20px; margin-bottom:6px;">Monthly</div>
+            <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:52px; letter-spacing:-.02em;">$280<span style="font-size:18px; font-weight:500; opacity:.7;">/month</span></div>
+            <p style="font-size:15px; margin:8px 0 22px; opacity:.8;">Best value. 30 days, priority bike selection.</p>
+            <a href="#1a" style="display:block; text-align:center; background:#0d0f0e; color:#d4ff3f; font-weight:700; padding:13px; border-radius:11px;">Start monthly</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- footer -->
+      <div style="padding:36px 40px; border-top:1px solid #1e2220; display:flex; align-items:center; justify-content:space-between; color:#6f766f; font-size:14px;">
+        <div style="display:flex; align-items:center; gap:9px; font-family:'Space Grotesk',sans-serif; font-weight:700; color:#f4f6f4;"><span style="width:26px;height:26px;border-radius:7px;background:#d4ff3f;color:#0d0f0e;display:grid;place-items:center;">⚡</span>VOLTBIKE</div>
+        <div>© 2026 VoltBike. Built for delivery drivers.</div>
+      </div>
+    </div>
+
+    <!-- mobile mock A -->
+    <div style="margin-top:28px; display:flex; align-items:flex-start; gap:20px;">
+      <div style="width:340px; height:700px; border-radius:44px; background:#0d0f0e; padding:12px; box-shadow:0 24px 60px -20px rgba(0,0,0,.5); flex:0 0 auto;">
+        <div class="opt-scroll" style="width:100%; height:100%; border-radius:34px; overflow:hidden auto; background:#0d0f0e; color:#f4f6f4;">
+          <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 18px;"><div style="display:flex;align-items:center;gap:8px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:17px;"><span style="width:28px;height:28px;border-radius:8px;background:#d4ff3f;color:#0d0f0e;display:grid;place-items:center;">⚡</span>VOLTBIKE</div><span style="color:#d4ff3f;font-size:22px;">☰</span></div>
+          <div style="padding:8px 18px 20px;">
+            <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:38px;line-height:1;letter-spacing:-.03em;margin:12px 0 14px;">Power up<br>every <span style="color:#d4ff3f;">shift.</span></h1>
+            <p style="color:#a9b0ab;font-size:15px;line-height:1.5;margin:0 0 18px;">E-bike subscriptions for delivery drivers. No deposit.</p>
+            <a href="#1a" style="display:block;text-align:center;background:#d4ff3f;color:#0d0f0e;font-weight:700;padding:14px;border-radius:12px;margin-bottom:18px;">Get started →</a>
+            <div style="height:200px;border-radius:16px;overflow:hidden;border:1px solid #262b28;"><image-slot id="a-mobile" shape="rect" placeholder="Bike photo"></image-slot></div>
+          </div>
+        </div>
+      </div>
+      <div style="color:#6f766f; font-size:13px; font-family:'Hanken Grotesk',sans-serif; padding-top:8px;">Mobile</div>
+    </div>
+  </div>
+
+  <!-- ================= OPTION 1B — DAYBREAK ================= -->
+  <div id="1b" style="width:1280px; flex:0 0 auto;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+      <span style="background:#2a2520; color:#f7f3ec; font-weight:700; font-size:15px; padding:6px 14px; border-radius:999px;">1B · Daybreak</span>
+      <span style="color:#3a3a37; font-size:14px;">Warm, editorial — human & approachable</span>
+    </div>
+    <div class="opt-scroll" style="width:1280px; height:1500px; overflow:hidden auto; border-radius:24px; box-shadow:0 30px 80px -30px rgba(0,0,0,.35); background:#f7f3ec; color:#2a2520;">
+
+      <!-- nav -->
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:24px 44px; position:sticky; top:0; background:rgba(247,243,236,.9); backdrop-filter:blur(8px); z-index:5;">
+        <div style="display:flex; align-items:center; gap:10px; font-family:'Instrument Serif',serif; font-size:26px;">
+          <span style="width:34px; height:34px; border-radius:50%; background:#cc6b47; color:#f7f3ec; display:grid; place-items:center; font-size:17px;">◉</span>
+          Pedalworks
+        </div>
+        <div style="display:flex; align-items:center; gap:30px; font-size:15px; color:#6b6055; font-weight:500;">
+          <a href="#1b">Bikes</a><a href="#1b">How it works</a><a href="#1b">Pricing</a><a href="#1b">Login</a>
+          <a href="#1b" style="background:#cc6b47; color:#fff; font-weight:600; padding:11px 22px; border-radius:999px;">Get started</a>
+        </div>
+      </div>
+
+      <!-- hero -->
+      <div style="padding:56px 44px 60px; display:grid; grid-template-columns:1fr 1fr; gap:52px; align-items:center;">
+        <div>
+          <div style="font-size:14px; font-weight:600; color:#cc6b47; letter-spacing:.08em; text-transform:uppercase; margin-bottom:20px;">For the people who keep cities moving</div>
+          <h1 style="font-family:'Instrument Serif',serif; font-weight:400; font-size:76px; line-height:1.02; letter-spacing:-.01em; margin:0 0 22px;">
+            An e-bike that<br>works as hard<br>as <span style="font-style:italic; color:#cc6b47;">you do.</span>
+          </h1>
+          <p style="font-size:19px; line-height:1.55; color:#6b6055; max-width:440px; margin:0 0 34px;">
+            Affordable weekly and monthly subscriptions for DoorDash, Uber Eats and independent couriers. Ride today, cancel anytime.
+          </p>
+          <div style="display:flex; gap:14px; align-items:center;">
+            <a href="#1b" style="background:#2a2520; color:#f7f3ec; font-weight:600; font-size:16px; padding:15px 30px; border-radius:999px;">Get started</a>
+            <a href="#1b" style="color:#2a2520; font-weight:600; font-size:16px; padding:15px 12px; border-bottom:2px solid #cc6b47;">Browse bikes →</a>
+          </div>
+        </div>
+        <div style="position:relative;">
+          <div style="height:480px; border-radius:28px 28px 120px 28px; overflow:hidden; box-shadow:0 24px 60px -28px rgba(90,60,40,.4);">
+            <image-slot id="b-hero" shape="rect" placeholder="Drop courier + e-bike photo"></image-slot>
+          </div>
+          <div style="position:absolute; bottom:-18px; left:-18px; background:#fff; border-radius:16px; padding:16px 20px; box-shadow:0 16px 40px -14px rgba(90,60,40,.35);">
+            <div style="font-family:'Instrument Serif',serif; font-size:34px; color:#cc6b47; line-height:1;">$95<span style="font-size:15px; color:#6b6055;">/wk</span></div>
+            <div style="font-size:12px; color:#8a7d6f;">unlimited miles</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- availability -->
+      <div style="padding:0 44px 64px;">
+        <div style="background:#fff; border:1px solid #e8dfd1; border-radius:22px; padding:30px 34px; display:grid; grid-template-columns:1fr 1fr auto; gap:24px; align-items:end; box-shadow:0 14px 40px -24px rgba(90,60,40,.3);">
+          <div style="grid-column:1 / -1;"><div style="font-family:'Instrument Serif',serif; font-size:26px;">Check availability</div><div style="font-size:14px; color:#8a7d6f;">No account needed — choose your dates and see what's free.</div></div>
+          <div><label style="display:block; font-size:13px; color:#6b6055; margin-bottom:8px; font-weight:600;">From</label><div style="border:1px solid #e2d8c8; border-radius:12px; padding:13px 15px; font-size:15px;">Jul 14, 2026</div></div>
+          <div><label style="display:block; font-size:13px; color:#6b6055; margin-bottom:8px; font-weight:600;">To</label><div style="border:1px solid #e2d8c8; border-radius:12px; padding:13px 15px; font-size:15px;">Jul 21, 2026</div></div>
+          <a href="#1b" style="background:#cc6b47; color:#fff; font-weight:600; font-size:15px; padding:14px 28px; border-radius:12px; white-space:nowrap;">Search bikes</a>
+        </div>
+      </div>
+
+      <!-- how it works -->
+      <div style="padding:8px 44px 64px;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:44px; margin:0 0 6px;">How it works</h2>
+        <p style="color:#8a7d6f; font-size:16px; margin:0 0 34px;">Four simple steps, ten honest minutes.</p>
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:22px;">
+          <div><div style="width:52px; height:52px; border-radius:50%; background:#f0e6d6; color:#cc6b47; display:grid; place-items:center; font-size:24px; margin-bottom:16px;">📝</div><div style="font-weight:700; font-size:18px; margin-bottom:6px;">Register</div><div style="font-size:14px; color:#8a7d6f; line-height:1.55;">Create an account and pick your delivery platform.</div></div>
+          <div><div style="width:52px; height:52px; border-radius:50%; background:#f0e6d6; color:#cc6b47; display:grid; place-items:center; font-size:24px; margin-bottom:16px;">💳</div><div style="font-weight:700; font-size:18px; margin-bottom:6px;">Subscribe</div><div style="font-size:14px; color:#8a7d6f; line-height:1.55;">Weekly or monthly via secure Stripe checkout.</div></div>
+          <div><div style="width:52px; height:52px; border-radius:50%; background:#f0e6d6; color:#cc6b47; display:grid; place-items:center; font-size:24px; margin-bottom:16px;">🚴</div><div style="font-weight:700; font-size:18px; margin-bottom:6px;">Ride</div><div style="font-size:14px; color:#8a7d6f; line-height:1.55;">Grab your bike from a nearby station and start earning.</div></div>
+          <div><div style="width:52px; height:52px; border-radius:50%; background:#f0e6d6; color:#cc6b47; display:grid; place-items:center; font-size:24px; margin-bottom:16px;">🔄</div><div style="font-weight:700; font-size:18px; margin-bottom:6px;">Return</div><div style="font-size:14px; color:#8a7d6f; line-height:1.55;">Return the bike to any station whenever you're done.</div></div>
+        </div>
+      </div>
+
+      <!-- pricing -->
+      <div style="padding:8px 44px 68px;">
+        <h2 style="font-family:'Instrument Serif',serif; font-size:44px; margin:0 0 32px;">Simple pricing</h2>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:22px;">
+          <div style="background:#fff; border:1px solid #e8dfd1; border-radius:22px; padding:34px;">
+            <div style="font-weight:700; font-size:20px; margin-bottom:4px;">Weekly</div>
+            <div style="font-family:'Instrument Serif',serif; font-size:60px; color:#cc6b47; line-height:1;">$95</div>
+            <p style="color:#8a7d6f; font-size:15px; margin:10px 0 24px;">Perfect for trying out. 7 days of unlimited riding.</p>
+            <a href="#1b" style="display:block; text-align:center; border:1.5px solid #2a2520; color:#2a2520; font-weight:600; padding:13px; border-radius:999px;">Start now</a>
+          </div>
+          <div style="background:#2a2520; color:#f7f3ec; border-radius:22px; padding:34px; position:relative;">
+            <div style="position:absolute; top:26px; right:26px; background:#cc6b47; color:#fff; font-size:12px; font-weight:700; padding:5px 12px; border-radius:999px;">BEST VALUE</div>
+            <div style="font-weight:700; font-size:20px; margin-bottom:4px;">Monthly</div>
+            <div style="font-family:'Instrument Serif',serif; font-size:60px; color:#e0916f; line-height:1;">$280</div>
+            <p style="color:#b8aa9a; font-size:15px; margin:10px 0 24px;">Best value. 30 days, priority bike selection.</p>
+            <a href="#1b" style="display:block; text-align:center; background:#cc6b47; color:#fff; font-weight:600; padding:13px; border-radius:999px;">Start now</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- footer -->
+      <div style="padding:34px 44px; border-top:1px solid #e8dfd1; display:flex; align-items:center; justify-content:space-between; color:#8a7d6f; font-size:14px;">
+        <div style="display:flex; align-items:center; gap:9px; font-family:'Instrument Serif',serif; font-size:22px; color:#2a2520;"><span style="width:26px;height:26px;border-radius:50%;background:#cc6b47;color:#fff;display:grid;place-items:center;font-size:13px;">◉</span>Pedalworks</div>
+        <div>© 2026 Pedalworks. Built for delivery drivers.</div>
+      </div>
+    </div>
+
+    <!-- mobile mock B -->
+    <div style="margin-top:28px; display:flex; align-items:flex-start; gap:20px;">
+      <div style="width:340px; height:700px; border-radius:44px; background:#2a2520; padding:12px; box-shadow:0 24px 60px -20px rgba(90,60,40,.4); flex:0 0 auto;">
+        <div class="opt-scroll" style="width:100%; height:100%; border-radius:34px; overflow:hidden auto; background:#f7f3ec; color:#2a2520;">
+          <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 18px;"><div style="display:flex;align-items:center;gap:8px;font-family:'Instrument Serif',serif;font-size:20px;"><span style="width:26px;height:26px;border-radius:50%;background:#cc6b47;color:#fff;display:grid;place-items:center;font-size:12px;">◉</span>Pedalworks</div><span style="font-size:22px;color:#cc6b47;">☰</span></div>
+          <div style="padding:10px 18px 20px;">
+            <h1 style="font-family:'Instrument Serif',serif;font-size:44px;line-height:1.02;margin:10px 0 14px;">An e-bike that works as hard as <span style="font-style:italic;color:#cc6b47;">you do.</span></h1>
+            <p style="color:#6b6055;font-size:15px;line-height:1.5;margin:0 0 18px;">Weekly & monthly subscriptions for delivery drivers.</p>
+            <a href="#1b" style="display:block;text-align:center;background:#2a2520;color:#f7f3ec;font-weight:600;padding:14px;border-radius:999px;margin-bottom:18px;">Get started</a>
+            <div style="height:220px;border-radius:20px 20px 60px 20px;overflow:hidden;"><image-slot id="b-mobile" shape="rect" placeholder="Bike photo"></image-slot></div>
+          </div>
+        </div>
+      </div>
+      <div style="color:#6f766f; font-size:13px; padding-top:8px;">Mobile</div>
+    </div>
+  </div>
+
+  <!-- ================= OPTION 1C — TRANSIT ================= -->
+  <div id="1c" style="width:1280px; flex:0 0 auto;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+      <span style="background:#0f2437; color:#fff; font-family:'Archivo',sans-serif; font-weight:800; font-size:15px; padding:6px 14px; border-radius:8px;">1C · Transit</span>
+      <span style="color:#3a3a37; font-size:14px;">Crisp, functional — transit-app inspired</span>
+    </div>
+    <div class="opt-scroll" style="width:1280px; height:1500px; overflow:hidden auto; border-radius:24px; box-shadow:0 30px 80px -30px rgba(0,0,0,.35); background:#f4f7f9; font-family:'IBM Plex Sans',sans-serif; color:#0f2437;">
+
+      <!-- nav -->
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:20px 44px; background:#fff; border-bottom:1px solid #e4ebf0; position:sticky; top:0; z-index:5;">
+        <div style="display:flex; align-items:center; gap:10px; font-family:'Archivo',sans-serif; font-weight:800; font-size:20px; letter-spacing:-.01em;">
+          <span style="width:34px; height:34px; border-radius:8px; background:#0f2437; color:#3fd0c9; display:grid; place-items:center; font-size:18px;">◈</span>
+          METRORIDE
+        </div>
+        <div style="display:flex; align-items:center; gap:28px; font-size:15px; color:#4a5f72; font-weight:500;">
+          <a href="#1c">Browse bikes</a><a href="#1c">Stations</a><a href="#1c">Pricing</a><a href="#1c">Login</a>
+          <a href="#1c" style="background:#0f2437; color:#fff; font-weight:700; padding:11px 22px; border-radius:8px;">Get started</a>
+        </div>
+      </div>
+
+      <!-- hero split -->
+      <div style="display:grid; grid-template-columns:1.02fr .98fr;">
+        <div style="padding:64px 44px 60px; background:#0f2437; color:#fff;">
+          <div style="display:inline-flex; align-items:center; gap:8px; background:rgba(63,208,201,.14); color:#3fd0c9; font-size:13px; font-weight:600; padding:7px 14px; border-radius:8px; margin-bottom:26px;">6 STATIONS · LIVE AVAILABILITY</div>
+          <h1 style="font-family:'Archivo',sans-serif; font-weight:900; font-size:60px; line-height:1.02; letter-spacing:-.03em; margin:0 0 22px;">
+            Your bike is<br>ready at the<br><span style="color:#3fd0c9;">next station.</span>
+          </h1>
+          <p style="font-size:18px; line-height:1.55; color:#a9bccb; max-width:430px; margin:0 0 34px;">
+            Weekly and monthly e-bike subscriptions for delivery drivers. Check availability by station, book, and roll.
+          </p>
+          <div style="display:flex; gap:12px;">
+            <a href="#1c" style="background:#3fd0c9; color:#0f2437; font-weight:700; font-size:16px; padding:15px 28px; border-radius:9px;">Get started</a>
+            <a href="#1c" style="border:1.5px solid #355168; color:#fff; font-weight:600; font-size:16px; padding:15px 28px; border-radius:9px;">Browse bikes</a>
+          </div>
+        </div>
+        <div style="position:relative; min-height:520px; background:#dbe6ee; background-image:linear-gradient(#c8d8e3 1px,transparent 1px),linear-gradient(90deg,#c8d8e3 1px,transparent 1px); background-size:36px 36px;">
+          <div style="position:absolute; inset:36px; border-radius:16px; overflow:hidden; box-shadow:0 20px 50px -20px rgba(15,36,55,.4);">
+            <image-slot id="c-hero" shape="rect" placeholder="Drop e-bike / city map photo"></image-slot>
+          </div>
+          <div style="position:absolute; bottom:52px; right:52px; background:#fff; border-radius:12px; padding:14px 18px; box-shadow:0 12px 30px -10px rgba(15,36,55,.3); display:flex; align-items:center; gap:12px;">
+            <span style="width:40px;height:40px;border-radius:9px;background:#e6f8f6;color:#0f9b93;display:grid;place-items:center;font-size:20px;">📍</span>
+            <div><div style="font-family:'Archivo',sans-serif;font-weight:700;font-size:15px;">Midtown Hub</div><div style="font-size:12px;color:#0f9b93;font-weight:600;">12 bikes available</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- availability bar -->
+      <div style="padding:32px 44px; background:#fff; border-bottom:1px solid #e4ebf0;">
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr auto; gap:16px; align-items:end;">
+          <div style="grid-column:1 / -1; margin-bottom:2px;"><div style="font-family:'Archivo',sans-serif; font-weight:700; font-size:22px;">Check availability</div><div style="font-size:14px; color:#6b7f8f;">No account needed — pick a station and dates.</div></div>
+          <div><label style="display:block; font-size:13px; color:#4a5f72; margin-bottom:8px; font-weight:600;">Station</label><div style="border:1.5px solid #d5e0e8; border-radius:9px; padding:13px 15px; font-size:15px; background:#f9fbfc;">All stations</div></div>
+          <div><label style="display:block; font-size:13px; color:#4a5f72; margin-bottom:8px; font-weight:600;">From</label><div style="border:1.5px solid #d5e0e8; border-radius:9px; padding:13px 15px; font-size:15px; background:#f9fbfc;">Jul 14, 2026</div></div>
+          <div><label style="display:block; font-size:13px; color:#4a5f72; margin-bottom:8px; font-weight:600;">To</label><div style="border:1.5px solid #d5e0e8; border-radius:9px; padding:13px 15px; font-size:15px; background:#f9fbfc;">Jul 21, 2026</div></div>
+          <a href="#1c" style="background:#0f2437; color:#fff; font-weight:700; font-size:15px; padding:14px 26px; border-radius:9px; white-space:nowrap;">Search</a>
+        </div>
+      </div>
+
+      <!-- how it works -->
+      <div style="padding:52px 44px 56px;">
+        <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:32px; letter-spacing:-.02em; margin:0 0 32px;">How it works</h2>
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:1px solid #e4ebf0; border-radius:16px; overflow:hidden; background:#fff;">
+          <div style="padding:26px; border-right:1px solid #e4ebf0;"><div style="font-family:'Archivo',sans-serif; font-weight:800; font-size:26px; color:#3fd0c9;">1</div><div style="font-weight:700; font-size:17px; margin:10px 0 6px;">Register</div><div style="font-size:14px; color:#6b7f8f; line-height:1.5;">Create your account, pick your platform.</div></div>
+          <div style="padding:26px; border-right:1px solid #e4ebf0;"><div style="font-family:'Archivo',sans-serif; font-weight:800; font-size:26px; color:#3fd0c9;">2</div><div style="font-weight:700; font-size:17px; margin:10px 0 6px;">Subscribe</div><div style="font-size:14px; color:#6b7f8f; line-height:1.5;">Weekly or monthly via Stripe.</div></div>
+          <div style="padding:26px; border-right:1px solid #e4ebf0;"><div style="font-family:'Archivo',sans-serif; font-weight:800; font-size:26px; color:#3fd0c9;">3</div><div style="font-weight:700; font-size:17px; margin:10px 0 6px;">Ride</div><div style="font-size:14px; color:#6b7f8f; line-height:1.5;">Pick up at a nearby station and go.</div></div>
+          <div style="padding:26px;"><div style="font-family:'Archivo',sans-serif; font-weight:800; font-size:26px; color:#3fd0c9;">4</div><div style="font-weight:700; font-size:17px; margin:10px 0 6px;">Return</div><div style="font-size:14px; color:#6b7f8f; line-height:1.5;">Drop at any station when done.</div></div>
+        </div>
+      </div>
+
+      <!-- pricing -->
+      <div style="padding:0 44px 64px;">
+        <h2 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:32px; letter-spacing:-.02em; margin:0 0 28px;">Simple pricing</h2>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+          <div style="background:#fff; border:1px solid #e4ebf0; border-radius:16px; padding:32px;">
+            <div style="font-family:'Archivo',sans-serif; font-weight:700; font-size:19px; margin-bottom:6px;">Weekly</div>
+            <div style="font-family:'Archivo',sans-serif; font-weight:900; font-size:50px; letter-spacing:-.02em; color:#0f2437;">$95<span style="font-size:17px; color:#6b7f8f; font-weight:600;">/wk</span></div>
+            <p style="color:#6b7f8f; font-size:15px; margin:8px 0 22px;">Perfect for trying out. 7 days of unlimited riding.</p>
+            <a href="#1c" style="display:block; text-align:center; border:1.5px solid #0f2437; color:#0f2437; font-weight:700; padding:13px; border-radius:9px;">Start weekly</a>
+          </div>
+          <div style="background:#0f2437; color:#fff; border-radius:16px; padding:32px; position:relative; overflow:hidden;">
+            <div style="position:absolute; top:26px; right:26px; background:#3fd0c9; color:#0f2437; font-size:12px; font-weight:700; padding:5px 12px; border-radius:6px;">BEST VALUE</div>
+            <div style="font-family:'Archivo',sans-serif; font-weight:700; font-size:19px; margin-bottom:6px;">Monthly</div>
+            <div style="font-family:'Archivo',sans-serif; font-weight:900; font-size:50px; letter-spacing:-.02em; color:#3fd0c9;">$280<span style="font-size:17px; color:#a9bccb; font-weight:600;">/mo</span></div>
+            <p style="color:#a9bccb; font-size:15px; margin:8px 0 22px;">Best value. 30 days, priority bike selection.</p>
+            <a href="#1c" style="display:block; text-align:center; background:#3fd0c9; color:#0f2437; font-weight:700; padding:13px; border-radius:9px;">Start monthly</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- footer -->
+      <div style="padding:32px 44px; background:#0f2437; color:#8fa6b7; display:flex; align-items:center; justify-content:space-between; font-size:14px;">
+        <div style="display:flex; align-items:center; gap:9px; font-family:'Archivo',sans-serif; font-weight:800; color:#fff;"><span style="width:26px;height:26px;border-radius:7px;background:#3fd0c9;color:#0f2437;display:grid;place-items:center;">◈</span>METRORIDE</div>
+        <div>© 2026 MetroRide. Built for delivery drivers.</div>
+      </div>
+    </div>
+
+    <!-- mobile mock C -->
+    <div style="margin-top:28px; display:flex; align-items:flex-start; gap:20px;">
+      <div style="width:340px; height:700px; border-radius:44px; background:#0f2437; padding:12px; box-shadow:0 24px 60px -20px rgba(15,36,55,.4); flex:0 0 auto;">
+        <div class="opt-scroll" style="width:100%; height:100%; border-radius:34px; overflow:hidden auto; background:#f4f7f9; color:#0f2437;">
+          <div style="background:#0f2437; color:#fff; padding:16px 18px 22px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;"><div style="display:flex;align-items:center;gap:8px;font-family:'Archivo',sans-serif;font-weight:800;font-size:16px;"><span style="width:26px;height:26px;border-radius:7px;background:#3fd0c9;color:#0f2437;display:grid;place-items:center;">◈</span>METRORIDE</div><span style="font-size:22px;color:#3fd0c9;">☰</span></div>
+            <h1 style="font-family:'Archivo',sans-serif;font-weight:900;font-size:34px;line-height:1.03;letter-spacing:-.02em;margin:6px 0 12px;">Your bike is ready at the <span style="color:#3fd0c9;">next station.</span></h1>
+            <p style="color:#a9bccb;font-size:14px;line-height:1.5;margin:0 0 16px;">E-bike subscriptions for delivery drivers.</p>
+            <a href="#1c" style="display:block;text-align:center;background:#3fd0c9;color:#0f2437;font-weight:700;padding:14px;border-radius:9px;">Get started</a>
+          </div>
+          <div style="padding:16px 18px;">
+            <div style="height:200px;border-radius:14px;overflow:hidden;"><image-slot id="c-mobile" shape="rect" placeholder="Bike photo"></image-slot></div>
+          </div>
+        </div>
+      </div>
+      <div style="color:#6f766f; font-size:13px; padding-top:8px;">Mobile</div>
+    </div>
+  </div>
+
+</section>
+</x-dc>
+</body>
+</html>

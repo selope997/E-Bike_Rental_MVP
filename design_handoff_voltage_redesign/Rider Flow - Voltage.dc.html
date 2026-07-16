@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #e9e7e2; font-family: 'Hanken Grotesk', sans-serif; }
+  a { color: inherit; text-decoration: none; }
+  .sc::-webkit-scrollbar { width: 8px; height: 8px; }
+  .sc::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 8px; }
+</style>
+</helmet>
+
+<section style="padding:56px; display:flex; flex-wrap:wrap; gap:56px; align-items:flex-start;">
+
+  <!-- ============ 2A · BROWSE BIKES ============ -->
+  <div id="2a" style="width:1200px; flex:0 0 auto;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+      <span style="background:#0d0f0e; color:#d4ff3f; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; padding:6px 14px; border-radius:999px;">2A · Browse Bikes</span>
+    </div>
+    <div class="sc" style="width:1200px; height:1080px; overflow:hidden auto; border-radius:22px; box-shadow:0 30px 80px -30px rgba(0,0,0,.45); background:#0d0f0e; color:#f4f6f4;">
+
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:20px 40px; border-bottom:1px solid #1e2220; position:sticky; top:0; background:rgba(13,15,14,.9); backdrop-filter:blur(10px); z-index:5;">
+        <div style="display:flex; align-items:center; gap:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px;"><span style="width:32px; height:32px; border-radius:9px; background:#d4ff3f; color:#0d0f0e; display:grid; place-items:center; font-size:18px;">⚡</span>VOLTBIKE</div>
+        <div style="display:flex; align-items:center; gap:28px; font-size:15px; color:#a9b0ab; font-weight:500;"><a href="#2a" style="color:#d4ff3f;">Browse bikes</a><a href="#2c">Dashboard</a><a href="#2e">Jane Smith</a><a href="#2a" style="background:#171b19; border:1px solid #2a302c; padding:8px 16px; border-radius:9px;">Sign out</a></div>
+      </div>
+
+      <div style="padding:36px 40px 60px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px;">
+          <h1 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:38px; letter-spacing:-.02em; margin:0;">Browse bikes</h1>
+          <div style="background:#141815; border:1px solid #2a302c; border-radius:10px; padding:12px 16px; font-size:15px; color:#f4f6f4; display:flex; align-items:center; gap:10px;">All stations <span style="color:#7c837d;">▾</span></div>
+        </div>
+
+        <div style="display:inline-flex; align-items:center; gap:12px; background:rgba(212,255,63,.1); border:1px solid rgba(212,255,63,.25); border-radius:10px; padding:9px 16px; font-size:14px; color:#d4ff3f; margin-bottom:28px;">
+          <span>Showing availability from <strong>Jul 14</strong> to <strong>Jul 21</strong></span>
+          <a href="#2a" style="text-decoration:underline; font-weight:600;">Clear</a>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:22px;">
+          <!-- card -->
+          <a href="#2b" style="background:#141815; border:1px solid #232825; border-radius:16px; overflow:hidden; display:block;">
+            <div style="height:180px; overflow:hidden;"><image-slot id="r-bike1" shape="rect" placeholder="Bike photo"></image-slot></div>
+            <div style="padding:18px;"><div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;"><h3 style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:18px; margin:0;">RadRunner Cargo</h3><span style="background:rgba(212,255,63,.15); color:#d4ff3f; font-size:12px; font-weight:600; padding:4px 10px; border-radius:999px;">Available</span></div><p style="font-size:14px; color:#8b928c; margin:0 0 4px;">Cargo e-bike</p><p style="font-size:13px; color:#7c837d; margin:0;">📍 Midtown Hub</p></div>
+          </a>
+          <a href="#2b" style="background:#141815; border:1px solid #232825; border-radius:16px; overflow:hidden; display:block;">
+            <div style="height:180px; overflow:hidden;"><image-slot id="r-bike2" shape="rect" placeholder="Bike photo"></image-slot></div>
+            <div style="padding:18px;"><div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;"><h3 style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:18px; margin:0;">Aventon Level 2</h3><span style="background:rgba(212,255,63,.15); color:#d4ff3f; font-size:12px; font-weight:600; padding:4px 10px; border-radius:999px;">Available</span></div><p style="font-size:14px; color:#8b928c; margin:0 0 4px;">Commuter e-bike</p><p style="font-size:13px; color:#7c837d; margin:0;">📍 Riverside</p></div>
+          </a>
+          <a href="#2b" style="background:#141815; border:1px solid #232825; border-radius:16px; overflow:hidden; display:block;">
+            <div style="height:180px; overflow:hidden;"><image-slot id="r-bike3" shape="rect" placeholder="Bike photo"></image-slot></div>
+            <div style="padding:18px;"><div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;"><h3 style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:18px; margin:0;">RadWagon 4</h3><span style="background:rgba(127,176,255,.15); color:#7fb0ff; font-size:12px; font-weight:600; padding:4px 10px; border-radius:999px;">Rented</span></div><p style="font-size:14px; color:#8b928c; margin:0 0 4px;">Cargo e-bike</p><p style="font-size:13px; color:#7c837d; margin:0;">📍 Uptown</p></div>
+          </a>
+          <a href="#2b" style="background:#141815; border:1px solid #232825; border-radius:16px; overflow:hidden; display:block;">
+            <div style="height:180px; overflow:hidden;"><image-slot id="r-bike4" shape="rect" placeholder="Bike photo"></image-slot></div>
+            <div style="padding:18px;"><div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;"><h3 style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:18px; margin:0;">Lectric XP 3.0</h3><span style="background:rgba(212,255,63,.15); color:#d4ff3f; font-size:12px; font-weight:600; padding:4px 10px; border-radius:999px;">Available</span></div><p style="font-size:14px; color:#8b928c; margin:0 0 4px;">Folding e-bike</p><p style="font-size:13px; color:#7c837d; margin:0;">📍 Midtown Hub</p></div>
+          </a>
+          <a href="#2b" style="background:#141815; border:1px solid #232825; border-radius:16px; overflow:hidden; display:block;">
+            <div style="height:180px; overflow:hidden;"><image-slot id="r-bike5" shape="rect" placeholder="Bike photo"></image-slot></div>
+            <div style="padding:18px;"><div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;"><h3 style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:18px; margin:0;">Trek FX+ 2</h3><span style="background:rgba(255,207,102,.15); color:#ffcf66; font-size:12px; font-weight:600; padding:4px 10px; border-radius:999px;">Maintenance</span></div><p style="font-size:14px; color:#8b928c; margin:0 0 4px;">Commuter e-bike</p><p style="font-size:13px; color:#7c837d; margin:0;">📍 Riverside</p></div>
+          </a>
+          <a href="#2b" style="background:#141815; border:1px solid #232825; border-radius:16px; overflow:hidden; display:block;">
+            <div style="height:180px; overflow:hidden;"><image-slot id="r-bike6" shape="rect" placeholder="Bike photo"></image-slot></div>
+            <div style="padding:18px;"><div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:4px;"><h3 style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:18px; margin:0;">RadCity 5 Plus</h3><span style="background:rgba(212,255,63,.15); color:#d4ff3f; font-size:12px; font-weight:600; padding:4px 10px; border-radius:999px;">Available</span></div><p style="font-size:14px; color:#8b928c; margin:0 0 4px;">Commuter e-bike</p><p style="font-size:13px; color:#7c837d; margin:0;">📍 Uptown</p></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 2B · BIKE DETAIL ============ -->
+  <div id="2b" style="width:820px; flex:0 0 auto;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+      <span style="background:#0d0f0e; color:#d4ff3f; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; padding:6px 14px; border-radius:999px;">2B · Bike Detail</span>
+    </div>
+    <div class="sc" style="width:820px; height:1080px; overflow:hidden auto; border-radius:22px; box-shadow:0 30px 80px -30px rgba(0,0,0,.45); background:#0d0f0e; color:#f4f6f4;">
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:20px 32px; border-bottom:1px solid #1e2220;">
+        <div style="display:flex; align-items:center; gap:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px;"><span style="width:32px; height:32px; border-radius:9px; background:#d4ff3f; color:#0d0f0e; display:grid; place-items:center; font-size:18px;">⚡</span>VOLTBIKE</div>
+        <div style="display:flex; align-items:center; gap:24px; font-size:15px; color:#a9b0ab; font-weight:500;"><a href="#2a">Browse bikes</a><a href="#2c">Dashboard</a></div>
+      </div>
+      <div style="padding:28px 32px 56px;">
+        <a href="#2a" style="color:#d4ff3f; font-size:14px; font-weight:600; display:inline-block; margin-bottom:20px;">← Back to bikes</a>
+        <div style="background:#141815; border:1px solid #232825; border-radius:20px; overflow:hidden;">
+          <div style="height:300px; overflow:hidden;"><image-slot id="d-hero" shape="rect" placeholder="Drop bike photo"></image-slot></div>
+          <div style="padding:32px;">
+            <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:16px;">
+              <div><h1 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:34px; letter-spacing:-.02em; margin:0;">RadRunner Cargo</h1><p style="color:#8b928c; font-size:16px; margin:6px 0 0;">Cargo e-bike</p></div>
+              <span style="background:rgba(212,255,63,.15); color:#d4ff3f; font-size:14px; font-weight:600; padding:6px 14px; border-radius:999px;">Available</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px; color:#a9b0ab; font-size:15px; margin-bottom:28px;"><span>📍</span> Midtown Hub — 240 W 42nd St</div>
+
+            <div style="margin-bottom:22px;">
+              <label style="display:block; font-size:14px; font-weight:600; color:#a9b0ab; margin-bottom:12px;">Rental duration (weeks)</label>
+              <div style="display:flex; align-items:center; gap:14px;">
+                <div style="width:40px; height:40px; border-radius:10px; border:1px solid #33393c; color:#a9b0ab; font-size:20px; font-weight:700; display:grid; place-items:center;">−</div>
+                <span style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:26px; width:32px; text-align:center;">4</span>
+                <div style="width:40px; height:40px; border-radius:10px; border:1px solid #33393c; color:#a9b0ab; font-size:20px; font-weight:700; display:grid; place-items:center;">+</div>
+                <span style="font-size:14px; color:#7c837d; margin-left:4px;">max 12 weeks</span>
+              </div>
+            </div>
+
+            <div style="background:#0d0f0e; border:1px solid #232825; border-radius:14px; padding:18px 20px; margin-bottom:24px;">
+              <div style="display:flex; align-items:center; justify-content:space-between;"><span style="font-size:15px; color:#a9b0ab;">4 weeks × $70/week</span><span style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px;">$280</span></div>
+              <p style="font-size:13px; color:#d4ff3f; margin:10px 0 0;">Bulk rate applied — $70/week.</p>
+            </div>
+
+            <a href="#2c" style="display:block; text-align:center; background:#d4ff3f; color:#0d0f0e; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; padding:16px; border-radius:12px;">Book now — $280</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 2C · DASHBOARD ============ -->
+  <div id="2c" style="width:940px; flex:0 0 auto;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+      <span style="background:#0d0f0e; color:#d4ff3f; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; padding:6px 14px; border-radius:999px;">2C · Dashboard</span>
+    </div>
+    <div class="sc" style="width:940px; height:640px; overflow:hidden auto; border-radius:22px; box-shadow:0 30px 80px -30px rgba(0,0,0,.45); background:#0d0f0e; color:#f4f6f4;">
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:20px 36px; border-bottom:1px solid #1e2220;">
+        <div style="display:flex; align-items:center; gap:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px;"><span style="width:32px; height:32px; border-radius:9px; background:#d4ff3f; color:#0d0f0e; display:grid; place-items:center; font-size:18px;">⚡</span>VOLTBIKE</div>
+        <div style="display:flex; align-items:center; gap:24px; font-size:15px; color:#a9b0ab; font-weight:500;"><a href="#2a">Browse bikes</a><a href="#2c" style="color:#d4ff3f;">Dashboard</a><a href="#2e">Jane Smith</a></div>
+      </div>
+      <div style="padding:32px 36px 40px;">
+        <h1 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:34px; letter-spacing:-.02em; margin:0 0 24px;">My dashboard</h1>
+        <div style="background:rgba(212,255,63,.1); border:1px solid rgba(212,255,63,.25); border-radius:12px; padding:14px 18px; font-size:14px; color:#d4ff3f; margin-bottom:24px;">🎉 Booking confirmed! Your bike is ready for pickup.</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+          <div style="background:#141815; border:1px solid #232825; border-radius:16px; overflow:hidden;">
+            <div style="padding:18px 22px; border-bottom:1px solid #232825; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:17px;">Subscription</div>
+            <div style="padding:22px;">
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;"><span style="background:rgba(212,255,63,.15); color:#d4ff3f; font-size:12px; font-weight:600; padding:4px 10px; border-radius:999px;">Active</span><span style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:17px;">Monthly</span></div>
+              <p style="font-size:14px; color:#8b928c; margin:0 0 8px;">Valid until <strong style="color:#f4f6f4;">Aug 13, 2026</strong></p>
+              <a href="#2c" style="color:#d4ff3f; font-size:14px; font-weight:600;">Manage subscription →</a>
+            </div>
+          </div>
+          <div style="background:#141815; border:1px solid #232825; border-radius:16px; overflow:hidden;">
+            <div style="padding:18px 22px; border-bottom:1px solid #232825; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:17px;">Current rental</div>
+            <div style="padding:22px;">
+              <div style="display:flex; align-items:center; gap:14px; margin-bottom:14px;"><div style="width:48px; height:48px; border-radius:11px; background:#0d0f0e; border:1px solid #232825; display:grid; place-items:center; font-size:24px;">🚴</div><div><p style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:16px; margin:0;">RadRunner Cargo</p><p style="font-size:13px; color:#8b928c; margin:2px 0 0;">Cargo e-bike · 📍 Midtown Hub</p></div></div>
+              <p style="font-size:13px; color:#8b928c; line-height:1.7; margin:0 0 16px;">Started: Jul 14, 2026, 9:04 AM<br>Return by: Aug 11, 2026, 9:04 AM<br>Duration: 4 weeks · Paid: $280.00</p>
+              <div style="display:inline-block; background:#e5484d; color:#fff; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:14px; padding:10px 18px; border-radius:10px;">Return bike</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 2D · SUBSCRIBE ============ -->
+  <div id="2d" style="width:820px; flex:0 0 auto;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+      <span style="background:#0d0f0e; color:#d4ff3f; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; padding:6px 14px; border-radius:999px;">2D · Subscribe</span>
+    </div>
+    <div class="sc" style="width:820px; height:560px; overflow:hidden auto; border-radius:22px; box-shadow:0 30px 80px -30px rgba(0,0,0,.45); background:#0d0f0e; color:#f4f6f4;">
+      <div style="display:flex; align-items:center; justify-content:space-between; padding:20px 32px; border-bottom:1px solid #1e2220;">
+        <div style="display:flex; align-items:center; gap:10px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px;"><span style="width:32px; height:32px; border-radius:9px; background:#d4ff3f; color:#0d0f0e; display:grid; place-items:center; font-size:18px;">⚡</span>VOLTBIKE</div>
+        <div style="display:flex; align-items:center; gap:24px; font-size:15px; color:#a9b0ab; font-weight:500;"><a href="#2a">Browse bikes</a><a href="#2c">Dashboard</a></div>
+      </div>
+      <div style="padding:32px 32px 44px;">
+        <h1 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:32px; letter-spacing:-.02em; margin:0 0 4px;">Choose your plan</h1>
+        <p style="color:#8b928c; font-size:16px; margin:0 0 28px;">Unlock unlimited bike access with a subscription.</p>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+          <div style="background:#141815; border:1px solid #232825; border-radius:18px; padding:28px; display:flex; flex-direction:column;">
+            <h2 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px; margin:0 0 8px;">Weekly</h2>
+            <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:44px; letter-spacing:-.02em;">$95</div>
+            <p style="color:#8b928c; font-size:14px; margin:4px 0 22px;">7 days</p>
+            <a href="#2c" style="margin-top:auto; text-align:center; border:1.5px solid #33393c; color:#f4f6f4; font-family:'Space Grotesk',sans-serif; font-weight:700; padding:14px; border-radius:11px;">Subscribe with Stripe</a>
+          </div>
+          <div style="background:linear-gradient(160deg,#d4ff3f,#a8e600); color:#0d0f0e; border-radius:18px; padding:28px; display:flex; flex-direction:column; position:relative;">
+            <div style="position:absolute; top:22px; right:22px; background:#0d0f0e; color:#d4ff3f; font-size:11px; font-weight:700; padding:5px 11px; border-radius:999px;">BEST VALUE</div>
+            <h2 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:22px; margin:0 0 8px;">Monthly</h2>
+            <div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:44px; letter-spacing:-.02em;">$280</div>
+            <p style="font-size:14px; margin:4px 0 22px; opacity:.75;">30 days</p>
+            <a href="#2c" style="margin-top:auto; text-align:center; background:#0d0f0e; color:#d4ff3f; font-family:'Space Grotesk',sans-serif; font-weight:700; padding:14px; border-radius:11px;">Subscribe with Stripe</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 2E · LOGIN ============ -->
+  <div id="2e" style="width:560px; flex:0 0 auto;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+      <span style="background:#0d0f0e; color:#d4ff3f; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; padding:6px 14px; border-radius:999px;">2E · Login</span>
+    </div>
+    <div style="width:560px; height:620px; border-radius:22px; box-shadow:0 30px 80px -30px rgba(0,0,0,.45); background:#0d0f0e; color:#f4f6f4; overflow:hidden;">
+      <div style="display:flex; align-items:center; gap:10px; padding:20px 28px; border-bottom:1px solid #1e2220; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px;"><span style="width:32px; height:32px; border-radius:9px; background:#d4ff3f; color:#0d0f0e; display:grid; place-items:center; font-size:18px;">⚡</span>VOLTBIKE</div>
+      <div style="padding:44px 40px; display:flex; align-items:center; justify-content:center; height:calc(100% - 73px);">
+        <div style="width:100%; max-width:400px; background:#141815; border:1px solid #232825; border-radius:18px; padding:32px;">
+          <h1 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:26px; margin:0 0 4px;">Welcome back</h1>
+          <p style="color:#8b928c; font-size:14px; margin:0 0 24px;">Sign in to your account.</p>
+          <label style="display:block; font-size:13px; font-weight:600; color:#a9b0ab; margin-bottom:7px;">Email</label>
+          <div style="background:#0d0f0e; border:1px solid #2a302c; border-radius:10px; padding:13px 15px; font-size:15px; color:#7c837d; margin-bottom:16px;">you@example.com</div>
+          <label style="display:block; font-size:13px; font-weight:600; color:#a9b0ab; margin-bottom:7px;">Password</label>
+          <div style="background:#0d0f0e; border:1px solid #2a302c; border-radius:10px; padding:13px 15px; font-size:15px; color:#7c837d; margin-bottom:24px;">••••••••</div>
+          <a href="#2c" style="display:block; text-align:center; background:#d4ff3f; color:#0d0f0e; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; padding:14px; border-radius:11px;">Sign in</a>
+          <p style="text-align:center; font-size:14px; color:#8b928c; margin:18px 0 0;">Don't have an account? <a href="#2f" style="color:#d4ff3f; font-weight:600;">Register</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ 2F · REGISTER ============ -->
+  <div id="2f" style="width:560px; flex:0 0 auto;">
+    <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+      <span style="background:#0d0f0e; color:#d4ff3f; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; padding:6px 14px; border-radius:999px;">2F · Register</span>
+    </div>
+    <div style="width:560px; height:860px; border-radius:22px; box-shadow:0 30px 80px -30px rgba(0,0,0,.45); background:#0d0f0e; color:#f4f6f4; overflow:hidden;">
+      <div style="display:flex; align-items:center; gap:10px; padding:20px 28px; border-bottom:1px solid #1e2220; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px;"><span style="width:32px; height:32px; border-radius:9px; background:#d4ff3f; color:#0d0f0e; display:grid; place-items:center; font-size:18px;">⚡</span>VOLTBIKE</div>
+      <div style="padding:36px 40px;">
+        <div style="width:100%; background:#141815; border:1px solid #232825; border-radius:18px; padding:32px;">
+          <h1 style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:26px; margin:0 0 4px;">Create account</h1>
+          <p style="color:#8b928c; font-size:14px; margin:0 0 24px;">Start your e-bike subscription today.</p>
+          <label style="display:block; font-size:13px; font-weight:600; color:#a9b0ab; margin-bottom:7px;">Full name</label>
+          <div style="background:#0d0f0e; border:1px solid #2a302c; border-radius:10px; padding:12px 15px; font-size:15px; color:#7c837d; margin-bottom:14px;">Jane Smith</div>
+          <label style="display:block; font-size:13px; font-weight:600; color:#a9b0ab; margin-bottom:7px;">Email</label>
+          <div style="background:#0d0f0e; border:1px solid #2a302c; border-radius:10px; padding:12px 15px; font-size:15px; color:#7c837d; margin-bottom:14px;">you@example.com</div>
+          <label style="display:block; font-size:13px; font-weight:600; color:#a9b0ab; margin-bottom:7px;">Password</label>
+          <div style="background:#0d0f0e; border:1px solid #2a302c; border-radius:10px; padding:12px 15px; font-size:15px; color:#7c837d; margin-bottom:14px;">Min. 6 characters</div>
+          <label style="display:block; font-size:13px; font-weight:600; color:#a9b0ab; margin-bottom:7px;">Phone</label>
+          <div style="background:#0d0f0e; border:1px solid #2a302c; border-radius:10px; padding:12px 15px; font-size:15px; color:#7c837d; margin-bottom:14px;">+1 555 000 0000</div>
+          <label style="display:block; font-size:13px; font-weight:600; color:#a9b0ab; margin-bottom:7px;">Delivery platform</label>
+          <div style="background:#0d0f0e; border:1px solid #2a302c; border-radius:10px; padding:12px 15px; font-size:15px; color:#f4f6f4; margin-bottom:24px; display:flex; align-items:center; justify-content:space-between;">DoorDash <span style="color:#7c837d;">▾</span></div>
+          <a href="#2d" style="display:block; text-align:center; background:#d4ff3f; color:#0d0f0e; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:16px; padding:14px; border-radius:11px;">Create account</a>
+          <p style="text-align:center; font-size:14px; color:#8b928c; margin:18px 0 0;">Already have an account? <a href="#2e" style="color:#d4ff3f; font-weight:600;">Sign in</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+</x-dc>
+</body>
+</html>

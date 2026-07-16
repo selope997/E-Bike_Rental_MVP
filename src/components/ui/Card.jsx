@@ -1,7 +1,7 @@
 export default function Card({ children, className = '', ...props }) {
   return (
     <div
-      className={`bg-white rounded-xl shadow-sm border border-gray-200 ${className}`}
+      className={`bg-volt-surface rounded-2xl border border-volt-border ${className}`}
       {...props}
     >
       {children}
@@ -11,7 +11,7 @@ export default function Card({ children, className = '', ...props }) {
 
 export function CardHeader({ children, className = '' }) {
   return (
-    <div className={`px-6 py-4 border-b border-gray-200 ${className}`}>
+    <div className={`px-6 py-4 border-b border-volt-border font-display font-semibold ${className}`}>
       {children}
     </div>
   )
