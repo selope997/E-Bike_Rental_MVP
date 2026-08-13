@@ -42,12 +42,14 @@ export function AuthProvider({ children }) {
     if (error) throw error
 
     if (data.user) {
+      // NOTE: never send `role` from the client — the DB trigger creates the profile
+      // with the default 'customer' role, and role changes are gated server-side
+      // (see migration 003_prevent_role_escalation.sql).
       await supabase.from('profiles').upsert({
         id: data.user.id,
         full_name: fullName,
         phone,
         delivery_platform: deliveryPlatform,
-        role: 'customer',
       })
     }
     return data
