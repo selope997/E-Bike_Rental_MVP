@@ -5,7 +5,7 @@ import Button from '../../components/ui/Button'
 import Badge, { statusBadge } from '../../components/ui/Badge'
 import Modal from '../../components/ui/Modal'
 
-const emptyForm = { name: '', type: '', status: 'available', station_id: '', image_url: '' }
+const emptyForm = { name: '', type: '', status: 'available', station_id: '', image_url: '', price_per_week: '95', price_per_week_bulk: '70' }
 
 export default function AdminBikes() {
   const [bikes, setBikes] = useState([])
@@ -44,6 +44,8 @@ export default function AdminBikes() {
       status: bike.status,
       station_id: bike.station_id || '',
       image_url: bike.image_url || '',
+      price_per_week: String(bike.price_per_week ?? '95'),
+      price_per_week_bulk: String(bike.price_per_week_bulk ?? '70'),
     })
     setEditId(bike.id)
     setModal(true)
@@ -51,7 +53,12 @@ export default function AdminBikes() {
 
   async function handleSave() {
     setSaving(true)
-    const payload = { ...form, station_id: form.station_id || null }
+    const payload = {
+      ...form,
+      station_id: form.station_id || null,
+      price_per_week: Number(form.price_per_week),
+      price_per_week_bulk: Number(form.price_per_week_bulk),
+    }
     if (editId) {
       await supabase.from('bikes').update(payload).eq('id', editId)
     } else {
@@ -87,6 +94,7 @@ export default function AdminBikes() {
                 <th className="text-left px-4 py-3 font-medium text-gray-600">Name</th>
                 <th className="text-left px-4 py-3 font-medium text-gray-600">Type</th>
                 <th className="text-left px-4 py-3 font-medium text-gray-600">Station</th>
+                <th className="text-left px-4 py-3 font-medium text-gray-600">Price</th>
                 <th className="text-left px-4 py-3 font-medium text-gray-600">Status</th>
                 <th className="text-right px-4 py-3 font-medium text-gray-600">Actions</th>
               </tr>
@@ -99,6 +107,10 @@ export default function AdminBikes() {
                     <td className="px-4 py-3 font-medium text-gray-900">{bike.name}</td>
                     <td className="px-4 py-3 text-gray-600">{bike.type}</td>
                     <td className="px-4 py-3 text-gray-600">{bike.stations?.name || '—'}</td>
+                    <td className="px-4 py-3 text-gray-600">
+                      <span className="font-medium text-gray-900">${bike.price_per_week}/wk</span>
+                      <span className="block text-xs text-gray-400">${bike.price_per_week_bulk}/wk at 4+</span>
+                    </td>
                     <td className="px-4 py-3"><Badge variant={b.variant}>{b.label}</Badge></td>
                     <td className="px-4 py-3 text-right">
                       <button onClick={() => openEdit(bike)} className="text-primary-600 hover:underline text-xs font-medium mr-3">Edit</button>
@@ -124,6 +136,26 @@ export default function AdminBikes() {
               />
             </div>
           ))}
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Weekly price ($)</label>
+              <input
+                type="number" min="0" step="0.01"
+                value={form.price_per_week}
+                onChange={e => setForm(f => ({ ...f, price_per_week: e.target.value }))}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">4+ weeks price ($/wk)</label>
+              <input
+                type="number" min="0" step="0.01"
+                value={form.price_per_week_bulk}
+                onChange={e => setForm(f => ({ ...f, price_per_week_bulk: e.target.value }))}
+                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500"
+              />
+            </div>
+          </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Station</label>
             <select

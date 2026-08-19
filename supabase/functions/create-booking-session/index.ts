@@ -1,10 +1,16 @@
 import { serve } from 'https://deno.land/std@0.177.0/http/server.ts'
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 import Stripe from 'https://esm.sh/stripe@14'
 
 const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY') ?? '', {
   apiVersion: '2024-06-20',
   httpClient: Stripe.createFetchHttpClient(),
 })
+
+const supabase = createClient(
+  Deno.env.get('SUPABASE_URL') ?? '',
+  Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? ''
+)
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -28,9 +34,20 @@ serve(async (req) => {
       throw new Error('durationWeeks must be an integer between 1 and 12')
     }
 
-    // Server-side price calculation — never trust the client-supplied total
-    const ratePerWeek = weeks < 4 ? 95 : 70
-    const totalCents = weeks * ratePerWeek * 100
+    // Server-side price calculation — read the bike's prices from the DB,
+    // never trust any client-supplied total.
+    const { data: bike, error: bikeError } = await supabase
+      .from('bikes')
+      .select('price_per_week, price_per_week_bulk')
+      .eq('id', bikeId)
+      .single()
+
+    if (bikeError || !bike) {
+      throw new Error('Bike not found')
+    }
+
+    const ratePerWeek = weeks < 4 ? Number(bike.price_per_week) : Number(bike.price_per_week_bulk)
+    const totalCents = Math.round(weeks * ratePerWeek * 100)
 
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',

@@ -32,7 +32,8 @@ export async function redirectToCheckout({ priceId, userId, successUrl, cancelUr
 
 /**
  * Redirect to Stripe Checkout for a per-booking one-time payment.
- * Pricing is calculated server-side: <4 weeks = $95/wk, >=4 weeks = $70/wk.
+ * Pricing is calculated server-side from the bike's own rates: the standard
+ * price_per_week, or price_per_week_bulk at 4+ weeks.
  */
 export async function redirectToBookingCheckout({ bikeId, userId, durationWeeks, successUrl, cancelUrl }) {
   const response = await fetch(

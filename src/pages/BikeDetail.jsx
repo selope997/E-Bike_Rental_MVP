@@ -18,10 +18,13 @@ export default function BikeDetail() {
   const [error, setError] = useState('')
   const [durationWeeks, setDurationWeeks] = useState(1)
 
-  // Derived pricing
-  const rate = durationWeeks < 4 ? 95 : 70
+  // Derived pricing — read from the bike's own rates (bulk applies at 4+ weeks).
+  // Safe when bike is still null; those renders are discarded by the guards below.
+  const stdRate = Number(bike?.price_per_week ?? 0)
+  const bulkRate = Number(bike?.price_per_week_bulk ?? 0)
+  const rate = durationWeeks < 4 ? stdRate : bulkRate
   const totalCost = rate * durationWeeks
-  const savingsIfBulk = (95 - 70) * durationWeeks
+  const savingsIfBulk = (stdRate - bulkRate) * durationWeeks
 
   useEffect(() => {
     async function fetchBike() {
@@ -154,15 +157,15 @@ export default function BikeDetail() {
                     </span>
                     <span className="font-display font-bold text-[22px]">${totalCost}</span>
                   </div>
-                  {durationWeeks < 4 ? (
+                  {durationWeeks < 4 && bulkRate < stdRate ? (
                     <p className="text-[13px] text-accent mt-2">
-                      Tip: book 4+ weeks to drop to $70/week — save ${savingsIfBulk} total.
+                      Tip: book 4+ weeks to drop to ${bulkRate}/week — save ${savingsIfBulk} total.
                     </p>
-                  ) : (
+                  ) : durationWeeks >= 4 && bulkRate < stdRate ? (
                     <p className="text-[13px] text-accent mt-2">
-                      Bulk rate applied — $70/week.
+                      Bulk rate applied — ${bulkRate}/week.
                     </p>
-                  )}
+                  ) : null}
                 </div>
 
                 <Button

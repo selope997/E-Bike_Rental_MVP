@@ -112,8 +112,9 @@ async function handleBookingCheckoutCompleted(session: Stripe.Checkout.Session) 
     return
   }
 
-  const ratePerWeek = durationWeeks < 4 ? 95 : 70
-  const amountPaid = (ratePerWeek * durationWeeks).toFixed(2)
+  // Record what Stripe actually charged (server-authoritative, per-bike pricing
+  // was computed in create-booking-session), so amount_paid can't drift.
+  const amountPaid = ((session.amount_total ?? 0) / 100).toFixed(2)
 
   const startTime = new Date()
   const expectedReturn = new Date(startTime)
