@@ -126,8 +126,8 @@ export default function Dashboard() {
                     </div>
                   </div>
                   <p className="text-[13px] text-volt-dim leading-relaxed mb-4">
-                    Started: {new Date(booking.start_time).toLocaleString()}<br />
-                    Return by: {new Date(booking.expected_return).toLocaleString()}<br />
+                    Pickup: {new Date(booking.start_time).toLocaleDateString()}<br />
+                    Return by: {new Date(booking.expected_return).toLocaleDateString()}<br />
                     Duration: {booking.duration_weeks} week{booking.duration_weeks > 1 ? 's' : ''}<br />
                     Paid: ${booking.amount_paid ? Number(booking.amount_paid).toFixed(2) : '—'}
                   </p>

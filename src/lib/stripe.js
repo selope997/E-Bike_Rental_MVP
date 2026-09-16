@@ -35,7 +35,7 @@ export async function redirectToCheckout({ priceId, userId, successUrl, cancelUr
  * Pricing is calculated server-side from the bike's own rates: the standard
  * price_per_week, or price_per_week_bulk at 4+ weeks.
  */
-export async function redirectToBookingCheckout({ bikeId, userId, durationWeeks, successUrl, cancelUrl }) {
+export async function redirectToBookingCheckout({ bikeId, userId, durationWeeks, pickupDate, successUrl, cancelUrl }) {
   const response = await fetch(
     `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-booking-session`,
     {
@@ -44,7 +44,7 @@ export async function redirectToBookingCheckout({ bikeId, userId, durationWeeks,
         'Content-Type': 'application/json',
         Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
       },
-      body: JSON.stringify({ bikeId, userId, durationWeeks, successUrl, cancelUrl }),
+      body: JSON.stringify({ bikeId, userId, durationWeeks, pickupDate, successUrl, cancelUrl }),
     }
   )
 

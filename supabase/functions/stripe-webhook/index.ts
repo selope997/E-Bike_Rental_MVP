@@ -104,7 +104,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
 }
 
 async function handleBookingCheckoutCompleted(session: Stripe.Checkout.Session) {
-  const { userId, bikeId, durationWeeks: dStr } = session.metadata!
+  const { userId, bikeId, durationWeeks: dStr, pickupDate } = session.metadata!
   const durationWeeks = parseInt(dStr, 10)
 
   if (!userId || !bikeId || isNaN(durationWeeks)) {
@@ -116,7 +116,9 @@ async function handleBookingCheckoutCompleted(session: Stripe.Checkout.Session) 
   // was computed in create-booking-session), so amount_paid can't drift.
   const amountPaid = ((session.amount_total ?? 0) / 100).toFixed(2)
 
-  const startTime = new Date()
+  // Start from the chosen pickup date (noon UTC keeps the calendar day stable across
+  // timezones); fall back to now for any in-flight session without the metadata.
+  const startTime = pickupDate ? new Date(`${pickupDate}T12:00:00Z`) : new Date()
   const expectedReturn = new Date(startTime)
   expectedReturn.setDate(expectedReturn.getDate() + durationWeeks * 7)
 

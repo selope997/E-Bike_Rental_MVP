@@ -23,15 +23,30 @@ serve(async (req) => {
   }
 
   try {
-    const { bikeId, userId, durationWeeks, successUrl, cancelUrl } = await req.json()
+    const { bikeId, userId, durationWeeks, pickupDate, successUrl, cancelUrl } = await req.json()
 
-    if (!bikeId || !userId || !durationWeeks) {
-      throw new Error('Missing required fields: bikeId, userId, durationWeeks')
+    if (!bikeId || !userId || !durationWeeks || !pickupDate) {
+      throw new Error('Missing required fields: bikeId, userId, durationWeeks, pickupDate')
     }
 
     const weeks = parseInt(durationWeeks, 10)
     if (isNaN(weeks) || weeks < 1 || weeks > 12) {
       throw new Error('durationWeeks must be an integer between 1 and 12')
+    }
+
+    // Validate pickup date server-side — never trust the client's min/max.
+    // Must be YYYY-MM-DD, a real date, from today up to 60 days ahead (UTC day math).
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(pickupDate)) {
+      throw new Error('pickupDate must be a valid YYYY-MM-DD date')
+    }
+    const pickup = new Date(`${pickupDate}T00:00:00Z`)
+    if (isNaN(pickup.getTime())) {
+      throw new Error('pickupDate is not a valid date')
+    }
+    const todayUtc = new Date(new Date().toISOString().split('T')[0] + 'T00:00:00Z')
+    const maxUtc = new Date(todayUtc.getTime() + 60 * 86400000)
+    if (pickup < todayUtc || pickup > maxUtc) {
+      throw new Error('pickupDate must be between today and 60 days from now')
     }
 
     // Server-side price calculation — read the bike's prices from the DB,
@@ -69,6 +84,7 @@ serve(async (req) => {
         userId,
         bikeId,
         durationWeeks: String(weeks),
+        pickupDate,
       },
     })
 

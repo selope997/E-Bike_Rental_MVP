@@ -18,6 +18,11 @@ export default function BikeDetail() {
   const [error, setError] = useState('')
   const [durationWeeks, setDurationWeeks] = useState(1)
 
+  // Pickup date bounds: today .. today + 60 days (local YYYY-MM-DD)
+  const today = new Date().toISOString().split('T')[0]
+  const maxDate = new Date(Date.now() + 60 * 86400000).toISOString().split('T')[0]
+  const [pickupDate, setPickupDate] = useState(today)
+
   // Derived pricing — read from the bike's own rates (bulk applies at 4+ weeks).
   // Safe when bike is still null; those renders are discarded by the guards below.
   const stdRate = Number(bike?.price_per_week ?? 0)
@@ -25,6 +30,12 @@ export default function BikeDetail() {
   const rate = durationWeeks < 4 ? stdRate : bulkRate
   const totalCost = rate * durationWeeks
   const savingsIfBulk = (stdRate - bulkRate) * durationWeeks
+
+  // Return date = pickup + weeks×7, computed from local date parts to avoid UTC off-by-one
+  const [py, pm, pd] = pickupDate.split('-').map(Number)
+  const returnLabel = pickupDate
+    ? new Date(py, pm - 1, pd + durationWeeks * 7).toLocaleDateString()
+    : '—'
 
   useEffect(() => {
     async function fetchBike() {
@@ -42,6 +53,11 @@ export default function BikeDetail() {
   async function handleBook() {
     if (!user) return navigate('/login')
 
+    if (!pickupDate) {
+      setError('Please choose a pickup date.')
+      return
+    }
+
     setBooking(true)
     setError('')
 
@@ -50,6 +66,7 @@ export default function BikeDetail() {
         bikeId: bike.id,
         userId: user.id,
         durationWeeks,
+        pickupDate,
         successUrl: `${window.location.origin}/dashboard?booked=true`,
         cancelUrl: window.location.href,
       })
@@ -146,6 +163,26 @@ export default function BikeDetail() {
                       +
                     </button>
                     <span className="text-sm text-volt-faint ml-1">max 12 weeks</span>
+                  </div>
+                </div>
+
+                {/* Pickup date + computed return date */}
+                <div className="mb-5">
+                  <label className="block text-[13px] font-semibold text-volt-muted mb-2">
+                    Pickup date
+                  </label>
+                  <div className="flex flex-wrap items-center gap-4">
+                    <input
+                      type="date"
+                      value={pickupDate}
+                      min={today}
+                      max={maxDate}
+                      onChange={e => setPickupDate(e.target.value)}
+                      className="bg-volt-bg border border-volt-stroke rounded-[10px] px-4 py-3 text-sm text-volt-text [color-scheme:dark] focus:outline-none focus:ring-2 focus:ring-accent"
+                    />
+                    <div className="text-sm text-volt-muted">
+                      Return by <span className="font-display font-semibold text-volt-text">{returnLabel}</span>
+                    </div>
                   </div>
                 </div>
 
