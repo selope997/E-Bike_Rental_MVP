@@ -31,9 +31,7 @@ jobs:
 
       - name: Deploy Edge Functions
         run: |
-          supabase functions deploy create-checkout-session
           supabase functions deploy create-booking-session
-          supabase functions deploy create-portal-session
           # Stripe calls this endpoint without a Supabase JWT, so JWT verification
           # must be disabled — it is secured by Stripe signature verification instead.
           supabase functions deploy stripe-webhook --no-verify-jwt

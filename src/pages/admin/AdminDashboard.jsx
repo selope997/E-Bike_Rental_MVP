@@ -26,14 +26,18 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     async function fetchStats() {
-      const [subs, bookings, bikes, profiles] = await Promise.all([
-        supabase.from('subscriptions').select('subscription_plans(price)').eq('status', 'active'),
+      const now = new Date()
+      const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString()
+
+      const [monthBookings, bookings, bikes, profiles] = await Promise.all([
+        supabase.from('bookings').select('amount_paid').gte('created_at', startOfMonth),
         supabase.from('bookings').select('id').eq('status', 'active'),
         supabase.from('bikes').select('id, status'),
         supabase.from('profiles').select('id'),
       ])
 
-      const revenue = (subs.data || []).reduce((sum, s) => sum + (s.subscription_plans?.price || 0), 0)
+      const revenue = (monthBookings.data || [])
+        .reduce((sum, b) => sum + Number(b.amount_paid || 0), 0)
       const availableBikes = (bikes.data || []).filter(b => b.status === 'available').length
 
       setStats({
@@ -56,7 +60,7 @@ export default function AdminDashboard() {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <KPICard icon="💰" label="Active MRR" value={`$${stats.totalRevenue}`} sub="From active subscriptions" />
+          <KPICard icon="💰" label="Revenue This Month" value={`$${stats.totalRevenue.toFixed(2)}`} sub="From bookings this month" />
           <KPICard icon="🔑" label="Active Rentals" value={stats.activeRentals} sub="Bikes currently rented" />
           <KPICard icon="🚴" label="Available Bikes" value={stats.availableBikes} sub="Ready to rent" />
           <KPICard icon="👥" label="Total Users" value={stats.totalUsers} sub="Registered accounts" />

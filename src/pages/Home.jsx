@@ -5,14 +5,14 @@ import Footer from '../components/layout/Footer'
 
 const steps = [
   { num: '01', title: 'Register', desc: 'Create your account and select your delivery platform.' },
-  { num: '02', title: 'Subscribe', desc: 'Pick a weekly or monthly plan via Stripe.' },
+  { num: '02', title: 'Book', desc: 'Pick a bike and how many weeks you need, then pay once via Stripe.' },
   { num: '03', title: 'Ride', desc: 'Pick up your e-bike from a nearby station and start delivering.' },
   { num: '04', title: 'Return', desc: 'Return the bike to any station when you\'re done.' },
 ]
 
 const plans = [
-  { name: 'Weekly', price: 95, unit: '/week', desc: 'Perfect for trying out. 7 days of unlimited riding.' },
-  { name: 'Monthly', price: 280, unit: '/month', desc: 'Best value. 30 days, priority bike selection.' },
+  { name: 'Standard', price: 95, unit: '/week', desc: 'Rent any bike for 1–3 weeks. Pay once, no subscription.' },
+  { name: '4+ weeks', price: 70, unit: '/week', desc: 'Book 4 weeks or more and the weekly rate drops automatically.' },
 ]
 
 const stats = [
@@ -51,8 +51,8 @@ export default function Home() {
                 Power up every <span className="text-accent">delivery</span> shift.
               </h1>
               <p className="text-[17px] md:text-[19px] leading-relaxed text-volt-muted max-w-[460px] mt-5">
-                Affordable weekly and monthly e-bike subscriptions built for DoorDash, Uber Eats,
-                and independent delivery drivers.
+                Affordable e-bike rentals by the week, built for DoorDash, Uber Eats,
+                and independent delivery drivers. Book only what you need.
               </p>
               <div className="flex flex-wrap gap-4 mt-8">
                 <Link
@@ -152,7 +152,7 @@ export default function Home() {
           <section className="py-16">
             <h2 className="font-display font-bold text-[28px] md:text-[34px] mb-10">Simple pricing</h2>
             <div className="grid md:grid-cols-2 gap-6">
-              {/* Weekly — surface */}
+              {/* Standard rate — surface */}
               <div className="bg-volt-surface border border-volt-border rounded-2xl p-8 flex flex-col">
                 <h3 className="font-display font-semibold text-xl">{plans[0].name}</h3>
                 <div className="font-display font-bold text-[44px] mt-3">
@@ -160,14 +160,14 @@ export default function Home() {
                 </div>
                 <p className="text-volt-dim text-sm mt-2 mb-8">{plans[0].desc}</p>
                 <Link
-                  to="/register"
+                  to="/bikes"
                   className="mt-auto block text-center border border-volt-outline text-volt-text hover:bg-volt-border font-medium py-3 rounded-xl transition-colors"
                 >
-                  Start now
+                  Browse bikes
                 </Link>
               </div>
 
-              {/* Monthly — lime gradient */}
+              {/* Bulk rate — lime gradient */}
               <div
                 className="rounded-2xl p-8 flex flex-col text-volt-bg"
                 style={{ background: 'linear-gradient(160deg,#d4ff3f,#a8e600)' }}
@@ -181,10 +181,10 @@ export default function Home() {
                 </div>
                 <p className="text-sm mt-2 mb-8 opacity-80">{plans[1].desc}</p>
                 <Link
-                  to="/register"
+                  to="/bikes"
                   className="mt-auto block text-center bg-volt-bg text-accent hover:bg-black font-display font-bold py-3 rounded-xl transition-colors"
                 >
-                  Start now
+                  Browse bikes
                 </Link>
               </div>
             </div>

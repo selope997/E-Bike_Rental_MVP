@@ -22,7 +22,6 @@ export default function Profile() {
   const [saving, setSaving] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
-  const [portalLoading, setPortalLoading] = useState(false)
 
   function handleChange(e) {
     setForm(f => ({ ...f, [e.target.name]: e.target.value }))
@@ -45,33 +44,6 @@ export default function Profile() {
       refreshProfile()
     }
     setSaving(false)
-  }
-
-  async function handlePortal() {
-    setPortalLoading(true)
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-portal-session`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-          },
-          body: JSON.stringify({
-            userId: user.id,
-            returnUrl: window.location.href,
-          }),
-        }
-      )
-      const { url, error } = await response.json()
-      if (error) throw new Error(error)
-      window.location.href = url
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setPortalLoading(false)
-    }
   }
 
   return (
@@ -127,20 +99,6 @@ export default function Profile() {
                 </div>
                 <Button type="submit" loading={saving}>Save Changes</Button>
               </form>
-            </CardBody>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <h2 className="text-lg font-semibold text-gray-900">Subscription</h2>
-            </CardHeader>
-            <CardBody>
-              <p className="text-sm text-gray-500 mb-4">
-                Manage your billing, view invoices, and update payment method via the Stripe Customer Portal.
-              </p>
-              <Button variant="secondary" loading={portalLoading} onClick={handlePortal}>
-                Open Billing Portal
-              </Button>
             </CardBody>
           </Card>
         </div>

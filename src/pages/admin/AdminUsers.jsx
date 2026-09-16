@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabase'
 import AdminLayout from '../../components/layout/AdminLayout'
-import Badge, { statusBadge } from '../../components/ui/Badge'
+import Badge from '../../components/ui/Badge'
 
 export default function AdminUsers() {
   const [users, setUsers] = useState([])
@@ -11,7 +11,7 @@ export default function AdminUsers() {
     async function fetchUsers() {
       const { data } = await supabase
         .from('profiles')
-        .select('*, subscriptions(status, period_end, subscription_plans(name))')
+        .select('*')
         .order('full_name')
       setUsers(data || [])
       setLoading(false)
@@ -35,14 +35,10 @@ export default function AdminUsers() {
                 <th className="text-left px-4 py-3 font-medium text-gray-600">Name</th>
                 <th className="text-left px-4 py-3 font-medium text-gray-600">Platform</th>
                 <th className="text-left px-4 py-3 font-medium text-gray-600">Role</th>
-                <th className="text-left px-4 py-3 font-medium text-gray-600">Plan</th>
-                <th className="text-left px-4 py-3 font-medium text-gray-600">Sub Status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {users.map(user => {
-                const activeSub = user.subscriptions?.find(s => s.status === 'active')
-                const badge = activeSub ? statusBadge(activeSub.status) : null
                 return (
                   <tr key={user.id} className="hover:bg-gray-50">
                     <td className="px-4 py-3">
@@ -52,14 +48,6 @@ export default function AdminUsers() {
                     <td className="px-4 py-3 text-gray-600 capitalize">{user.delivery_platform || '—'}</td>
                     <td className="px-4 py-3">
                       <Badge variant={user.role === 'admin' ? 'blue' : 'gray'}>{user.role}</Badge>
-                    </td>
-                    <td className="px-4 py-3 text-gray-600">{activeSub?.subscription_plans?.name || '—'}</td>
-                    <td className="px-4 py-3">
-                      {badge ? (
-                        <Badge variant={badge.variant}>{badge.label}</Badge>
-                      ) : (
-                        <span className="text-gray-400 text-xs">No subscription</span>
-                      )}
                     </td>
                   </tr>
                 )

@@ -11,7 +11,6 @@ import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import Bikes from './pages/Bikes'
 import BikeDetail from './pages/BikeDetail'
-import Subscribe from './pages/Subscribe'
 import Dashboard from './pages/Dashboard'
 import Profile from './pages/Profile'
 
@@ -36,9 +35,6 @@ export default function App() {
           <Route path="/bikes/:id" element={<BikeDetail />} />
 
           {/* Authenticated */}
-          <Route path="/subscribe" element={
-            <ProtectedRoute><Subscribe /></ProtectedRoute>
-          } />
           <Route path="/dashboard" element={
             <ProtectedRoute><Dashboard /></ProtectedRoute>
           } />

@@ -2,22 +2,18 @@ import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
-import { useSubscription } from '../hooks/useSubscription'
 import Navbar from '../components/layout/Navbar'
 import Footer from '../components/layout/Footer'
 import Button from '../components/ui/Button'
-import Badge from '../components/ui/Badge'
 import Card, { CardHeader, CardBody } from '../components/ui/Card'
 
 export default function Dashboard() {
   const { user } = useAuth()
-  const { subscription, isActive, loading: subLoading } = useSubscription()
   const [searchParams] = useSearchParams()
   const [booking, setBooking] = useState(null)
   const [bookingLoading, setBookingLoading] = useState(true)
   const [returning, setReturning] = useState(false)
 
-  const justSubscribed = searchParams.get('subscribed') === 'true'
   const justBooked = searchParams.get('booked') === 'true'
 
   useEffect(() => {
@@ -59,52 +55,13 @@ export default function Dashboard() {
       <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
         <h1 className="font-display font-bold text-[34px] mb-8">My dashboard</h1>
 
-        {justSubscribed && (
-          <div className="mb-6 bg-accent/10 border border-accent/25 text-accent rounded-xl px-[18px] py-3.5 text-sm font-medium">
-            🎉 Subscription activated! You can now book a bike.
-          </div>
-        )}
-
         {justBooked && (
           <div className="mb-6 bg-accent/10 border border-accent/25 text-accent rounded-xl px-[18px] py-3.5 text-sm font-medium">
             Booking confirmed! Your bike is ready for pickup.
           </div>
         )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Subscription Card */}
-          <Card>
-            <CardHeader>
-              <h2 className="text-lg">Subscription</h2>
-            </CardHeader>
-            <CardBody>
-              {subLoading ? (
-                <div className="animate-pulse h-16 bg-volt-bg rounded" />
-              ) : isActive ? (
-                <div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <Badge variant="green">Active</Badge>
-                    <span className="font-display font-semibold text-volt-text">{subscription?.subscription_plans?.name}</span>
-                  </div>
-                  <p className="text-sm text-volt-dim">
-                    Valid until{' '}
-                    <strong className="text-volt-text">{new Date(subscription?.period_end).toLocaleDateString()}</strong>
-                  </p>
-                  <Link to="/profile" className="text-sm text-accent hover:underline mt-2 inline-block">
-                    Manage subscription →
-                  </Link>
-                </div>
-              ) : (
-                <div>
-                  <p className="text-volt-dim text-sm mb-3">No active subscription.</p>
-                  <Link to="/subscribe">
-                    <Button size="sm">Subscribe now</Button>
-                  </Link>
-                </div>
-              )}
-            </CardBody>
-          </Card>
-
+        <div className="max-w-xl">
           {/* Booking Card */}
           <Card>
             <CardHeader>

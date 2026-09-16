@@ -29,7 +29,7 @@ export default function Register() {
     setLoading(true)
     try {
       await signUp(form)
-      navigate('/subscribe')
+      navigate('/bikes')
     } catch (err) {
       setError(err.message)
     } finally {
@@ -43,7 +43,7 @@ export default function Register() {
       <div className="flex-1 flex items-center justify-center py-12 px-4">
         <div className="w-full max-w-md bg-volt-surface border border-volt-border rounded-[18px] p-8">
           <h1 className="font-display font-bold text-[26px] mb-2">Create account</h1>
-          <p className="text-volt-dim text-sm mb-6">Start your e-bike subscription today.</p>
+          <p className="text-volt-dim text-sm mb-6">Create an account and book your first e-bike.</p>
 
           {error && (
             <div className="mb-4 p-3 bg-[#e5484d]/10 border border-[#e5484d]/25 text-[#ff8079] rounded-lg text-sm">

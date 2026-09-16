@@ -6,8 +6,9 @@ Project memory for Claude Code. Read this at the start of every session.
 
 ## Project Purpose
 
-Subscription-based e-bike rental platform targeting **delivery drivers** (DoorDash, UberEats, etc.).
-Users sign up → subscribe via Stripe → browse and book bikes by station.
+Per-booking e-bike rental platform targeting **delivery drivers** (DoorDash, UberEats, etc.).
+Users sign up → browse bikes by station → book a bike for 1–12 weeks and pay once via Stripe.
+There is no subscription model — all revenue comes from one-time booking payments.
 
 ---
 
@@ -33,12 +34,10 @@ src/
 ├── context/
 │   └── AuthContext.jsx            # Global auth state: session, user, profile
 ├── hooks/
-│   ├── useAuth.js                 # Re-export from AuthContext
-│   ├── useBikes.js                # Fetches bikes + stations, supports filtering
-│   └── useSubscription.js         # Fetches plans + active user subscription
+│   └── useBikes.js                # Fetches bikes + stations, supports filtering
 ├── lib/
 │   ├── supabase.js                # Supabase client (singleton)
-│   └── stripe.js                  # Stripe promise + redirectToCheckout()
+│   └── stripe.js                  # Stripe promise + redirectToBookingCheckout()
 ├── components/
 │   ├── auth/
 │   │   ├── ProtectedRoute.jsx     # Redirects to /login if not authenticated
@@ -57,23 +56,25 @@ src/
     ├── Login.jsx                  # Email/password signin
     ├── Register.jsx               # Signup + profile fields (phone, delivery platform)
     ├── Bikes.jsx                  # Browse bikes, filter by station
-    ├── BikeDetail.jsx             # Single bike + Book Now button
-    ├── Subscribe.jsx              # Choose a subscription plan
-    ├── Dashboard.jsx              # Active rental + subscription status
-    ├── Profile.jsx                # Edit profile + Stripe billing portal link
+    ├── BikeDetail.jsx             # Single bike, duration + pickup date, Book Now
+    ├── Dashboard.jsx              # Current rental
+    ├── Profile.jsx                # Edit profile
     └── admin/
         ├── AdminDashboard.jsx     # KPIs: revenue, rentals, bikes, users
         ├── AdminBikes.jsx         # CRUD bikes (table + modal form)
-        ├── AdminUsers.jsx         # View all users + their subscription status
+        ├── AdminUsers.jsx         # View all users (name, platform, role)
         └── AdminBookings.jsx      # View all bookings, mark returned
 
 supabase/
 ├── migrations/
-│   └── 001_schema.sql             # Full schema + RLS policies + seed data
+│   ├── 001_schema.sql             # Base schema + RLS policies + seed data
+│   ├── 002_booking_pricing.sql    # bookings: duration_weeks, amount_paid, payment intent
+│   ├── 003_prevent_role_escalation.sql  # Trigger: only admins can change profiles.role
+│   ├── 004_bike_pricing.sql       # bikes: price_per_week + price_per_week_bulk (+ guard)
+│   └── 005_remove_subscriptions.sql     # Drops subscriptions + subscription_plans
 └── functions/
-    ├── create-checkout-session/   # POST → creates Stripe Checkout Session
-    ├── create-portal-session/     # POST → creates Stripe Billing Portal session
-    └── stripe-webhook/            # Handles Stripe webhook events
+    ├── create-booking-session/    # POST → Stripe Checkout (mode: payment) for a booking
+    └── stripe-webhook/            # Handles checkout.session.completed → creates booking
 ```
 
 ---
@@ -94,20 +95,13 @@ supabase/
 - `id`, `name`, `type`, `image_url`
 - `status`: `'available'` | `'rented'` | `'maintenance'`
 - `station_id` FK → stations
-
-**subscription_plans**
-- `id`, `name`, `price`, `duration_days`, `stripe_price_id`
-- Seed: Weekly ($49/7d), Monthly ($149/30d)
-
-**subscriptions**
-- `user_id` FK → profiles, `plan_id` FK → subscription_plans
-- `stripe_subscription_id` (unique), `stripe_customer_id`
-- `status`: `'active'` | `'canceled'` | `'past_due'` | `'unpaid'`
-- `period_start`, `period_end`
+- `price_per_week`, `price_per_week_bulk` — admin-editable; bulk rate applies at 4+ weeks
+  (a DB trigger blocks non-admins from changing either)
 
 **bookings**
-- `user_id`, `bike_id`, `subscription_id`
-- `start_time`, `expected_return`, `actual_return`
+- `user_id`, `bike_id`
+- `start_time` (the chosen pickup day), `expected_return`, `actual_return`
+- `duration_weeks`, `amount_paid`, `stripe_payment_intent_id` (unique)
 - `status`: `'active'` | `'completed'` | `'cancelled'`
 
 ### RLS Security Model
@@ -129,7 +123,6 @@ supabase/
 | `/register` | Register | Public |
 | `/bikes` | Bikes | Public |
 | `/bikes/:id` | BikeDetail | Public |
-| `/subscribe` | Subscribe | ProtectedRoute |
 | `/dashboard` | Dashboard | ProtectedRoute |
 | `/profile` | Profile | ProtectedRoute |
 | `/admin` | AdminDashboard | AdminRoute |
@@ -142,16 +135,18 @@ supabase/
 
 ## Key Data Flows
 
-### Subscription Purchase
-1. User picks plan on `/subscribe`
-2. Frontend calls Edge Fn `create-checkout-session` → redirects to Stripe hosted page
-3. Stripe fires `checkout.session.completed` webhook → Edge Fn `stripe-webhook` → INSERT into `subscriptions`
-4. Other webhook events update `subscriptions.status` and period dates
+### Bike Booking (the only payment flow)
+1. Signed-in user visits `/bikes/:id`, picks a duration (1–12 weeks) and a pickup date
+   (today up to 60 days out)
+2. "Book Now" → Edge Fn `create-booking-session` recomputes the price **server-side** from the
+   bike's own rates and validates the pickup date, then creates a Stripe Checkout Session
+   (`mode: 'payment'`) carrying `userId`, `bikeId`, `durationWeeks`, `pickupDate` in metadata
+3. Stripe fires `checkout.session.completed` → `stripe-webhook` → INSERT bookings
+   (`amount_paid` from `session.amount_total`, `start_time` from the pickup date) +
+   UPDATE bikes (status=rented)
+4. Dashboard shows the current rental
 
-### Bike Booking
-1. User with `isActive` subscription visits `/bikes/:id`
-2. "Book Now" → INSERT bookings (status=active) + UPDATE bikes (status=rented)
-3. Dashboard shows active rental
+**Pricing is always server-authoritative** — the client never sends an amount.
 
 ### Bike Return
 1. User on `/dashboard` clicks "Return Bike"
@@ -184,7 +179,7 @@ STRIPE_WEBHOOK_SECRET=
 - **Supabase queries**: done directly in hooks/pages via the singleton client from `src/lib/supabase.js`
 - **Admin writes**: always check RLS + `is_admin()` — never bypass from client
 - **UI components**: prefer `Button`, `Badge`, `Card`, `Modal` from `src/components/ui/` before creating new ones
-- **statusBadge()**: use this helper from `Badge.jsx` for any status display (bookings, subscriptions, bikes)
+- **statusBadge()**: use this helper from `Badge.jsx` for any status display (bookings, bikes)
 
 ---
 
@@ -192,6 +187,9 @@ STRIPE_WEBHOOK_SECRET=
 
 - Vercel handles SPA routing via `vercel.json` (all paths → `/index.html`)
 - Stripe webhook URL: `https://<supabase-project>.supabase.co/functions/v1/stripe-webhook`
-- Stripe `stripe_price_id` values must be populated in `subscription_plans` table for checkout to work
+- Booking prices come from each bike's `price_per_week` / `price_per_week_bulk` columns (no Stripe
+  Price objects needed — the Edge Function builds `price_data` on the fly)
+- CI: pushing changes under `supabase/**` triggers `.github/workflows/deploy-supabase.yml`, which
+  deploys the Edge Functions and runs `supabase db push`
 - Run `supabase db push` to apply migrations to remote project
 - Deploy Edge Functions with `supabase functions deploy <name>`
